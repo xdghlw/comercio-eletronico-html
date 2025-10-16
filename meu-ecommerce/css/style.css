@@ -11,15 +11,3 @@ div {
     height: 1002px;
 }
 
-.form-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* Espaço entre os inputs */
-  max-width: 300px; /* Largura máxima opcional */
-}
-
-.form-container input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
