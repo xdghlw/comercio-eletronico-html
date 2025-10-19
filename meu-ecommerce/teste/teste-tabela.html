@@ -7,35 +7,48 @@
     <link rel="stylesheet" href="/meu-ecommerce/css/style.css">
 </head>
 <body>
-    
-    <table border="10">
-        <thead>
-            <tr>
-                <th scope="col">Imagem</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Preço</th>
-            </tr>            
-        </thead>
-        <tbody>
+    <div class="cabeçalho-principal">
+        <h1>Página de Produtos</h1>
+    </div>
+    <hr>
+    <div id="container-tabela">
+        <table>
+            <thead>
                 <tr>
-                <td><div class="cat"><img src="/meu-ecommerce/img/carro.png" alt="a"></div></td>
-                <td>Carro</td>
-                <td><R1>50.000</R1></td>
-                <td><input type="button" value="Adicionar ao carrinho"></td>
-            </tr>
-            <tr>
-                <td><div class="cat"><img src="/meu-ecommerce/img/aviao-voando.png" alt=""></div></td>
-                <td>Avião</td>
-                <td><R1>50.000</R1></td>
-                <td><input type="button" value="Adicionar ao carrinho"></td>
-            </tr>
-            <tr>
-                <td><div class="cat"><img src="/meu-ecommerce/img/motocicleta.png" alt=""></div></td>
-                <td>Moto</td>
-                <td><R1>10.000</R1></td>
-                <td><input type="button" value="Adicionar ao carrinho"></td>
-            </tr>
-        </tbody>
-    </table>
+                    <th scope="col">Imagem</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col" class="col-descricao">Descrição</th>
+                    <th scope="col">Preço</th>                
+                </tr>            
+            </thead>
+            <tbody>
+                <tr class="registro">
+                    <td><figure><img src="/meu-ecommerce/img/carro.png" alt="a"></figure></td>
+                    <td>Carro</td>
+                    <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam alias facere repellendus possimus numquam impedit vero velit, sed non doloremque magni consectetur iusto corporis cumque in beatae, blanditiis veniam quo?</td>
+                    <td><R1>50.000</R1></td>
+                    <td><input type="button" value="Adicionar ao carrinho" class="botao-adicionar-carrinho"></td>
+                </tr>
+                <tr class="registro">
+                    <td><figure><img src="/meu-ecommerce/img/aviao-voando.png" alt=""></figure></td>
+                    <td>Avião</td>
+                    <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quibusdam alias facere repellendus possimus numquam impedit vero velit, sed non doloremque magni consectetur iusto corporis cumque in beatae, blanditiis veniam quo?</td>
+                    <td><R1>150.000</R1></td>
+                    <td><input type="button" value="Adicionar ao carrinho" class="botao-adicionar-carrinho"></td>
+                </tr>
+                <tr class="registro">
+                    <td><figure><img src="/meu-ecommerce/img/motocicleta.png" alt=""></figure></td>
+                    <td>Moto</td>
+                    <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea eos quidem doloremque qui officiis, harum, earum corporis explicabo iste, vero saepe nam facere. Quis architecto ipsum inventore dolorem atque explicabo!</td>
+                    <td><R1>10.000</R1></td>
+                    <td><input type="button" value="Adicionar ao carrinho"  class="botao-adicionar-carrinho"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div>
+        <a href="../index.html">Voltar</a>
+    </div>
 </body>
 </html>

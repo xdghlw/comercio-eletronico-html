@@ -1,14 +1,9 @@
 div {
-    width: 300px;
-    height: 300px;
-    display: inline-block;
-    background-color: aliceblue;
-}
+    display: flexbox;
+    height: 100%;
 
-#principal {
-    background-color: black;
-    width: 1887px;
-    height: 1002px;
+    background-color: rgb(214, 214, 214);
+    text-align: center;
 }
 
 img {
@@ -16,7 +11,29 @@ img {
     max-height: 100%;
 }
 
-.cat {
-    height: 100px;
-    width: 100px;
+figure {
+    width: 150px;
+    height: 150px;
+}
+
+table {
+    border-collapse: collapse;
+    border: 3px solid;
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-inline-start: 25%;
+}
+
+td {
+    border: 2px solid;
+}
+
+.col-descricao {
+    width: 400px;
+}
+
+.cabeçalho-principal {
+    text-align: center;
 }
