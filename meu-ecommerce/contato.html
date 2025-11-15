@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <title>Contato</title>
 </head>
+
 <body>
-    <div class="container-principal ">
-        <div class="container-cabecalho">
-            <h1>Fale Conosco</h1>
-            <img src="img/comunicacao.png" alt="">
-        </div>
-        <hr>
-        <div class="container-apresentacao" id="contato-apresentacao">
-            <form action="sucesso-contato.html">     
+
+    <header class="cabecalho-contato">
+        <h1>Fale Conosco</h1>
+        <img id = "img-contato" src="img/comunicacao.png" alt="">
+    </header>
+
+    <hr>
+
+    <main class="conteudo-contato">
+
+        <form action="sucesso-contato.html">     
                 <label for="">Nome:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                 <input required type="text" placeholder="Digite seu nome aqui">
                 <br>
@@ -39,9 +44,15 @@
                 <br>
                 <input type="submit" value="Enviar Formulário">
             </form>
-        </div>
+
+    </main>
+
     <hr>
-    <a href="index.html">Voltar para a página principal</a>
-    </div>
+    
+    <footer class="rodape-contato">
+        <a href="index.html">Voltar para a página principal</a>
+    </footer>
+
 </body>
+
 </html>
