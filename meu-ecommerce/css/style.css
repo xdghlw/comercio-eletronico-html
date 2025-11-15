@@ -1,124 +1,53 @@
-/* REGRAS GLOBAIS */
-
-header {
-    text-align: center;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+.d-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  max-width: 400px;
 }
 
-html, body {
-    width: 100%;
-    height: 100%;
-    /* background-color: black; */
+.carousel-control-next {
+  /* right: 20%; */
+  opacity: 1;
+  filter: invert(1);
 }
 
-p {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: xx-large;
-}
-
-img {
-    max-width: 100px;
-    max-height: 100px;
-    position: relative;
-    top: 75%;
-}
-
-table {
-    border-collapse: collapse;
-    border: 3px solid;
-    font-family: sans-serif;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-    text-align: center;
-    margin-inline-start: 25%;
-}    
-
-td {
-    border: 2px solid;
-}
-
-input, select {
-    /* margin-top: 0.5%; */
-    margin-bottom: 0.5%;
-    width: 300px;
-}
-
-input[type=button] {
-    width: 150px;
-}
-
-textarea {
-    margin-top: 1%;
+.carousel-control-prev {
+  /* left: 20%; */
+  opacity: 1;
+  filter: invert(1);
 }
 
 footer {
-    text-align: center;
-    background-color: white;
-    padding: 0.5%;
-    font-weight: bold;
-    color: black;
+  height: 10px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+
 }
 
-main {
-    /* padding: 10%; */
-    text-align: center;
-    font-weight: bold;
-    border: 10px;
+/* .container-fluid {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 40px;
+  background-color: rgb(61, 59, 59);
 }
 
-a {
-    /* max-width: 1000px; */
-    border-radius: 15px;
-    display: block;
-    /* background-color: orange; */
+.img {
+  position: absolute;
+  left: 100px;
+  transform: translateX(-50%);
+} */
+
+.navbar .container-fluid {
+  position: relative;
 }
 
-/* FIM REGRAS GLOBAIS */
-
-/* REGRAS DE ID */
-#sucesso-contato-principal{
-    background-color: bisque;
-    height: 100%;
-    width: 100%;
-    display: grid;    
+.navbar .container-fluid img {
+  position: absolute;
+  left: 50%;
+  /* transform: translateX(-50%); */
 }
-
-#principal-imagem {
-    background-color: rgb(214, 214, 214);
-    background-color: bisque;    
-    text-align: center;
-    position: relative;
-}
-
-#principal-texto {
-    background-color: rgb(70, 116, 70);
-    text-align: center;
-    p {
-        /* color: yellowgreen; */
-        color: white;
-        font-weight: bold;
-    }
-    a{
-        color: whitesmoke;
-        font-size: larger;
-    }
-}
-
-/* FIM REGRAS DE ID */
-
-/* REGRAS DE CLASSE */
-
-.container-principal {
-    /* background-color: bisque; */
-    display: flexbox;
-    text-align: center;
-    width: 100%;
-    height: 100%;
-}
-
-
-.col-descricao {
-    width: 400px;
-}    
-
-/* FIM REGRAS DE CLASSE */
