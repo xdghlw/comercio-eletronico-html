@@ -35,9 +35,7 @@
 }
 
 
-* {
-  text-align: center;
-}
+
 
 .btn-produto {
   position: absolute;
@@ -62,10 +60,6 @@
   left: 15px;
 }
 
-/* img {
-  width: 15px;
-} */
-
 #produtos-avatar {
   width: 50px;
   height: 50px;
@@ -77,14 +71,27 @@
   
 }
 
-.col-md-4 {
-  /* position: relative;
-  background-color: whitesmoke; */
-  /* top: 15px;   */
-}
-
 #produtos-avatar {
   position: absolute;
   left: 10%;
   top: 10%;
+}
+
+
+.form-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* background-color: aqua; */
+  height: 90vh;
+}
+
+.div-login {
+  max-width: 550px;
+  /* display: flex; */
+}
+
+header {
+  text-align: center;
 }
