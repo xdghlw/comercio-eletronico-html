@@ -34,7 +34,11 @@
   height: 50px;
 }
 
-
+.confirmacao-img {
+  width: 150px; 
+  height: 150px; 
+  object-fit: contain;
+}
 
 
 .btn-produto {
@@ -92,9 +96,9 @@
   /* display: flex; */
 }
 
-header {
+/* header {
   text-align: center;
-}
+} */
 
 .card-body {
   text-align: center;
