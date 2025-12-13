@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
   <title>Document</title>
 </head>
+
 <body>
-  <div class="A">Conteúdo A</div>
-  <div class="B">Conteúdo B</div>
-  <div class="C">Conteúdo C</div>
-  <div class="D">Conteúdo D</div>
-  <div class="E">Conteúdo E</div>
-  <div class="F">Conteúdo F</div>
-  <div class="G">Conteúdo G</div>
-  <div class="H">Conteúdo H</div>
-  <div class="I">Conteúdo I</div>
-  <div class="J">Conteúdo J</div>
+
+
+  <script>
+    fetch("https://ppw-1-tads.vercel.app/api/products")
+      .then(response => {
+        // if (!response.ok) {
+        //     throw new Error("Erro na requisição");
+        // }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        data.products.forEach(element => {
+          // console.log(element)
+        });
+
+        var containerPrincipal = document.body.getElementsByClassName("container");
+        console.log(containerPrincipal)
+      })
+
+
+  </script>
 </body>
+
 </html>
