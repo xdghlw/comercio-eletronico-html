@@ -32,55 +32,57 @@
         </nav>
     </header>
 
-    <main class="min-vh-100 d-flex">
-        <div class="container-sm mt-5">
-            <div class="row">
-                <div class="col">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon2"><i class="bi bi-person"></i></span>
-                        <input type="text" class="form-control" placeholder="Nome" aria-label="First name">
+    <main class="min-vh-100">
+        <form action="sucesso-contato.html" class="d-flex">
+            <div class="container-sm mt-5">
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon2"><i class="bi bi-person"></i></span>
+                            <input type="text" class="form-control" placeholder="Nome" aria-label="First name">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <!-- <span class="input-group-text" id="basic-addon2"><i class="bi bi-person"></i></span> -->
+                            <input type="text" class="form-control" placeholder="Sobrenome" aria-label="Last name">
+                        </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="input-group mb-3">
-                        <!-- <span class="input-group-text" id="basic-addon2"><i class="bi bi-person"></i></span> -->
-                        <input type="text" class="form-control" placeholder="Sobrenome" aria-label="Last name">
-                    </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon2"><i class="bi bi-envelope-at"></i></span>
+                    <input type="email" class="form-control" placeholder="Email de usuário"
+                        aria-label="Recipient’s username" aria-describedby="basic-addon1">
+                </div>
+
+                <!-- <label for="basic-url" class="form-label"></label> -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon3"><i class="bi bi-telephone"></i></span>
+                    <input type="password" class="form-control" placeholder="Telefone" id="basic-url"
+                        aria-describedby="basic-addon3 basic-addon4">
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon3"><i class="bi bi-question-circle"></i></i></span>
+                    <select class="form-select text-muted" aria-label="Default select example">
+                        <option selected disabled value="">Qual o motivo do contato?</option>
+                        <option value="1">Opção A</option>
+                        <option value="2">Opção B</option>
+                        <option value="3">Opção C</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Digite sua mensagem aqui.</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                </div>
+                <!-- <button type="submit" class="btn btn-primary mx-auto">Realizar Cadastro</button> -->
+                <div class="d-grid gap-2 col-3 mx-auto">
+                    <button class="btn btn-outline-secondary" type="submit">Enviar Mensagem</button>
                 </div>
             </div>
-
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon2"><i class="bi bi-envelope-at"></i></span>
-                <input type="email" class="form-control" placeholder="Email de usuário"
-                    aria-label="Recipient’s username" aria-describedby="basic-addon1">
-            </div>
-
-            <!-- <label for="basic-url" class="form-label"></label> -->
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon3"><i class="bi bi-telephone"></i></span>
-                <input type="password" class="form-control" placeholder="Telefone" id="basic-url"
-                    aria-describedby="basic-addon3 basic-addon4">
-            </div>
-
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon3"><i class="bi bi-question-circle"></i></i></span>
-                <select class="form-select text-muted" aria-label="Default select example">
-                    <option selected>Qual o motivo do contato?</option>
-                    <option value="1">Opção A</option>
-                    <option value="2">Opção B</option>
-                    <option value="3">Opção C</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Digite sua mensagem aqui.</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-            </div>
-            <!-- <button type="submit" class="btn btn-primary mx-auto">Realizar Cadastro</button> -->
-            <div class="d-grid gap-2 col-3 mx-auto">
-                <button class="btn btn-outline-secondary" type="submit">Enviar Mensagem</button>
-            </div>
-        </div>
+        </form>
 
     </main>
 
