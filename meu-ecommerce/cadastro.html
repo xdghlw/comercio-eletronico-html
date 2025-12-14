@@ -121,8 +121,14 @@
         </div>
     </footer>
     <script>
+        document.getElementById('name').value = "Gustavo";
+        document.getElementById('email').value = "gustavo@email.com";
+        document.getElementById('password').value = "123";
+        document.getElementById('confirmPassword').value = "123";
+
         document.getElementById('formCadastro').addEventListener('submit', function (event) {
             event.preventDefault();
+
 
             const payload = {
                 nome: document.getElementById('name').value,
@@ -140,16 +146,13 @@
             })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Erro ao registrar usuário');
+                        console.log("Erro ao registrar usuário.")
                     }
                     return response.json();
                 })
                 .then(data => {
-                    console.log('Cadastro realizado com sucesso:', data);
+                    console.log(data);
                 })
-                // .catch(error => {
-                //     console.error('Erro:', error);
-                // });
         });
     </script>
 
