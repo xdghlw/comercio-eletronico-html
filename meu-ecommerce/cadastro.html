@@ -87,31 +87,18 @@
                 <div class="form-text mb-0" id="basic-addon4">É importante memorizar sua senha e garantir que ela seja
                     segura.</div>
 
-                <!-- <div class="mb-3 input-group">
-                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-gender-ambiguous"></i></span>
-                    <select class="form-select" aria-label="Default select example" required>
-                        <option selected disabled value="">Gênero</option>
-                        <option value="1">Masculino</option>
-                        <option value="2">Feminino</option>
-                    </select>
-                </div> -->
-
-                <div class="d-grid gap-2 col-3 mx-auto">
-                    <!-- <button class="btn btn-outline-secondary" type="submit">Realizar Cadastro</button> -->
-                    <input type="submit">
+                <div class="d-grid gap-2 col-3 mx-auto text-center">
+                    <!-- <button id="ajaxButton" class="btn btn-outline-secondary">Realizar Cadastro</button> -->
+                    <span id="ajaxButton" class="btn btn-primary">Enviar</span>
+                    <p id="msg-confirmacao"></p>
                 </div>
-
-
             </form>
+
         </div>
+
     </main>
 
     <footer class="border-top fixed-bottom text-muted bg-light">
-        <!-- <div class="container">
-            <div class="col-12 cold-md-4 text-center text-md-left py-2">
-                Loja Virtual 2025
-            </div>
-        </div> -->
         <div class="container">
             <div class="row py-3">
                 <div class="col-12 cold-md-4 text-center text-md-left">
@@ -120,42 +107,73 @@
             </div>
         </div>
     </footer>
-    <script>
+    <script type="text/javascript">
+
         document.getElementById('name').value = "Gustavo";
         document.getElementById('email').value = "gustavo@email.com";
         document.getElementById('password').value = "123";
         document.getElementById('confirmPassword').value = "123";
 
-        document.getElementById('formCadastro').addEventListener('submit', function (event) {
-            event.preventDefault();
+        (function () {
 
+            var httpRequest;
+            document.getElementById("ajaxButton").onclick = function () { makeRequest("https://ppw-1-tads.vercel.app/api/register"); };
 
-            const payload = {
-                nome: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                senha: document.getElementById('password').value,
-                confirmacaoSenha: document.getElementById('confirmPassword').value
-            };
+            function makeRequest(url) {
 
-            fetch('https://ppw-1-tads.vercel.app/api/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        console.log("Erro ao registrar usuário.")
+                const payload = {
+                    nome: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    senha: document.getElementById('password').value,
+                    confirmacaoSenha: document.getElementById('confirmPassword').value
+                };
+
+                if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+                    httpRequest = new XMLHttpRequest();
+                } else if (window.ActiveXObject) { // IE
+                    try {
+                        httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
                     }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data);
-                })
-        });
-    </script>
+                    catch (e) {
+                        try {
+                            httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                        }
+                        catch (e) { }
+                    }
+                }
 
+                if (!httpRequest) {
+                    alert('Giving up :( Cannot create an XMLHTTP instance');
+                    return false;
+                }
+
+                httpRequest.onreadystatechange = alertContents;
+                httpRequest.open('POST', url);
+                httpRequest.setRequestHeader('Content-Type', 'application/json');
+                httpRequest.send(JSON.stringify(payload));
+            }
+
+            function alertContents() {
+                if (httpRequest.readyState === 4) {
+                    if (httpRequest.status === 200) {
+                        console.log(JSON.parse(httpRequest.responseText))
+                        document.getElementById("ajaxButton").className = null;
+                        document.getElementById("ajaxButton").classList.add("btn", "btn-success");
+                        document.getElementById("msg-confirmacao").textContent = JSON.parse(httpRequest.responseText).mensagem;
+                        setTimeout(function () {
+                            window.location.href = "login.html";
+                        }, 1000);
+
+                    } else {
+                        console.log(JSON.parse(httpRequest.responseText))
+                        document.getElementById("ajaxButton").classList.add("btn-danger");
+                        document.getElementById("msg-confirmacao").textContent = JSON.parse(httpRequest.responseText).erro;
+                    }
+                }
+            }
+        })();
+        // document.getElementById("ajaxButton").click();
+    </script>
 </body>
 
 </html>
