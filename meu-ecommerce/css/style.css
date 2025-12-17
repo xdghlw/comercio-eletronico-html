@@ -84,7 +84,8 @@
 
 .form-login {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
+  margin-top: 200px;
   justify-content: center;
   text-align: center;
   /* background-color: aqua; */
