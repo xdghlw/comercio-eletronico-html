@@ -151,6 +151,7 @@
                         console.log(JSON.parse(httpRequest.responseText))
                         // console.log(JSON.parse(httpRequest.responseText).user)
                         localStorage.setItem(JSON.parse(httpRequest.responseText).user.email, JSON.parse(httpRequest.responseText).user.name);
+                        localStorage.setItem("usuarioLogado", "true");
                         setTimeout(function () {
                             window.location.href = "index.html";
                         }, 1000);
