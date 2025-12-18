@@ -13,6 +13,7 @@
 
 <body>
     <header>
+        <!-- Navbar bootstrap -->
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.html">
@@ -55,34 +56,41 @@
                 aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
-                        Email ou senha inválidos! Tente novamente.
+                        
                     </div>
                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
                         aria-label="Close"></button>
                 </div>
             </div>
 
-            </div>
+        </div>
 
-            <div class="form-login container-sm">
-                <form>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Endereço de Email</label>
-                        <input id="loginEmail" type="email" class="form-control form-control-sm" id="exampleInputEmail1"
-                            aria-describedby="emailHelp">
-                        <div id="emailHelp" class="form-text">Nós nunca iremos compartilhar seus dados com terceiros.
-                        </div>
+        <div class="form-login container-md border border-1 rounded-3">
+            <form class="mt-5">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Endereço de Email</label>
+                    <input id="loginEmail" type="email" class="form-control form-control-sm" id="exampleInputEmail1"
+                        aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">Nós nunca iremos compartilhar seus dados com terceiros.
                     </div>
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Senha</label>
-                        <input id="loginSenha" type="password" class="form-control form-control-sm"
-                            id="exampleInputPassword1">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Senha</label>
+                    <input id="loginSenha" type="password" class="form-control form-control-sm"
+                        id="exampleInputPassword1">
+                </div>
+                <p class="card-text"><small class="text-body-secondary">Não possui cadastro? <a
+                            href="cadastro.html">Clique aqui</a></small></p>
+
+                <span id="loginAjaxButton" class="btn btn-primary w-100">Enviar</span>
+                <div class="d-flex justify-content-center">
+                    <div id="loginSpinner" class="spinner-border text-success text-center visually-hidden mt-5"
+                        role="status">
+                        <span class="visually-hidden">Loading...</span>
                     </div>
-                    <p class="card-text"><small class="text-body-secondary">Não possui cadastro? <a
-                                href="cadastro.html">Clique aqui</a></small></p>
-                    <span id="loginAjaxButton" class="btn btn-primary">Enviar</span>
-                </form>
-            </div>
+                </div>
+            </form>
+        </div>
     </main>
     <footer class="border-top fixed-bottom text-muted bg-light">
         <div class="container">
@@ -95,15 +103,12 @@
     </footer>
 
     <script type="text/javascript">
-
+        
+        
         // document.getElementById('loginEmail').value = "admin";
         // document.getElementById('loginSenha').value = "admin";
-
-        document.getElementById('loginEmail').value = "gustavo@email.com";
-        document.getElementById('loginSenha').value = "123";
-
-        // var x = document.getElementById("loginAjaxButton");
-        // console.log(x);
+        // document.getElementById('loginEmail').value = "gustavo@email.com";
+        // document.getElementById('loginSenha').value = "123";
 
         (function () {
 
@@ -152,17 +157,50 @@
                         // console.log(JSON.parse(httpRequest.responseText).user)
                         localStorage.setItem(JSON.parse(httpRequest.responseText).user.email, JSON.parse(httpRequest.responseText).user.name);
                         localStorage.setItem("usuarioLogado", "true");
+                        sucessoValidacao(true);
                         setTimeout(function () {
                             window.location.href = "index.html";
-                        }, 1000);
+                        }, 1500);
                     } else {
+                        sucessoValidacao(false);
                         console.log(JSON.parse(httpRequest.responseText))
-                        const toastLiveExample = document.getElementById('liveToast')
-                        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-                        toastBootstrap.show()
+
                         // document.getElementById("loginEmail").value = "";
                         document.getElementById("loginSenha").value = "";
                     }
+                }
+            }
+
+            function sucessoValidacao(confirmacao) {
+                if (confirmacao === true) {
+                    document.getElementById("loginEmail").classList.add("border-success");
+                    document.getElementById("loginSenha").classList.add("border-success");
+                    document.getElementById("loginAjaxButton").classList.add("btn-success");
+                    document.getElementById("loginSpinner").classList.remove("visually-hidden");
+                    
+                    const toastLiveExample = document.getElementById('liveToast')
+                    toastLiveExample.classList.remove("text-bg-danger");
+                    toastLiveExample.classList.add("text-bg-success");
+                    document.getElementsByClassName("toast-body")[0].textContent = "Seus dados validados. Seja Bem-vindo(a)!"
+                    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+                    toastBootstrap.show()
+                } else {
+
+                    const toastLiveExample = document.getElementById('liveToast')
+                    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+
+                    toastBootstrap.show()
+
+                    document.getElementsByClassName("toast-body")[0].textContent = "Email ou senha inválidos! Tente novamente."
+                    document.getElementById("loginEmail").classList.add("border-danger");
+                    document.getElementById("loginSenha").classList.add("border-danger");
+                    document.getElementById("loginAjaxButton").classList.add("btn-danger");
+
+                    setTimeout(function () {
+                        document.getElementById("loginEmail").classList.remove("border-danger");
+                        document.getElementById("loginSenha").classList.remove("border-danger");
+                        document.getElementById("loginAjaxButton").classList.remove("btn-danger");
+                    }, 5200);
                 }
             }
         })();

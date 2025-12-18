@@ -55,7 +55,7 @@
   margin-bottom: 10px;
   margin-top: 10px;
   height: 500px;
-  min-height: 500px;
+  /* min-height: 500px; */
 }
 
 #produtos-card {
@@ -89,11 +89,12 @@
   justify-content: center;
   text-align: center;
   /* background-color: aqua; */
-  height: 90vh;
+  height: 40vh;
+  width: 60vh;
 }
 
 .div-login {
-  max-width: 550px;
+  /* max-width: 550px; */
   /* display: flex; */
 }
 
@@ -101,6 +102,9 @@
   text-align: center;
 } */
 
+div {
+  text-align: center;
+}
 .card-body {
   text-align: center;
 }

@@ -89,10 +89,11 @@
 
                 <div class="d-grid gap-2 col-3 mx-auto">
                     <!-- <button id="ajaxButton" class="btn btn-outline-secondary">Realizar Cadastro</button> -->
-                    <span id="ajaxButton" class="btn btn-primary">Enviar</span>
-                    <p id="msg-confirmacao" class="text-center"></p>
+                    <span id="ajaxButton" class="btn btn-primary" type="submit">Enviar</span>
+                    <p id="msg-confirmacao" class="text-center "></p>
                     <div class="d-flex justify-content-center">
-                        <div class="spinner-border text-success text-center" role="status">
+                        <div id="cadastroSpinner" class="spinner-border text-success text-center visually-hidden"
+                            role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
                     </div>
@@ -114,7 +115,7 @@
     </footer>
     <script type="text/javascript">
 
-        document.getElementById('name').value = "Gustavo";
+        // document.getElementById('name').value = "Gustavo";
         document.getElementById('email').value = "gustavo@email.com";
         document.getElementById('password').value = "123";
         document.getElementById('confirmPassword').value = "123";
@@ -163,6 +164,7 @@
                     if (httpRequest.status === 200) {
                         console.log(JSON.parse(httpRequest.responseText))
                         document.getElementById("ajaxButton").className = null;
+                        document.getElementById("cadastroSpinner").classList.remove("visually-hidden");
                         document.getElementById("ajaxButton").classList.add("btn", "btn-success");
                         document.getElementById("msg-confirmacao").textContent = JSON.parse(httpRequest.responseText).mensagem;
                         setTimeout(function () {
@@ -172,12 +174,34 @@
                     } else {
                         console.log(JSON.parse(httpRequest.responseText))
                         document.getElementById("ajaxButton").classList.add("btn-danger");
+                        // document.getElementById("msg-confirmacao").textContent = JSON.parse(httpRequest.responseText).erro;
                         document.getElementById("msg-confirmacao").textContent = JSON.parse(httpRequest.responseText).erro;
                     }
                 }
             }
         })();
-        // document.getElementById("ajaxButton").click();
+        document.getElementById("ajaxButton").click();
+    </script>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
     </script>
 </body>
 
