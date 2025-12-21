@@ -108,18 +108,22 @@
     <script>
         fetch("https://ppw-1-tads.vercel.app/api/products")
             .then(response => {
-                // if (!response.ok) {
-                //     throw new Error("Erro na requisição");
-                // }
+                if (!response.ok) {
+                    throw new Error("Erro na requisição");
+                }
                 return response.json();
             })
+            //data contém um objeto com três propriedades: success; total; products.
             .then(data => {
+                
+                //array que contém strings correspondentes às chaves/propriedades dos produtos. 
                 const chaves = Object.keys(data.products[0]);
-                const produtos = data.products;
-                console.log(data);
-                console.log(chaves);
 
-                console.log(produtos);
+                //array que contém os objetos que representam os produtos: [{id, nome, descrição, preço, imagem}, {...}, {...}]
+                const produtos = data.products;
+                console.log(produtos)
+                console.log(chaves)
+
 
                 // for (let index = 0; index < produtos.length; index++) {
 
@@ -186,6 +190,7 @@
                         coluna.appendChild(card);
                         linha.appendChild(coluna);
 
+                        // altera o id da linha depois de serem adicionados 4 cards.
                         if (((index + 1) % 4 == 0) && id < 5) {
                             id += 1;
                         }

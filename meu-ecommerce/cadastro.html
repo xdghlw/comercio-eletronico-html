@@ -115,7 +115,7 @@
     </footer>
     <script type="text/javascript">
 
-        // document.getElementById('name').value = "Gustavo";
+        document.getElementById('name').value = "Gustavo";
         document.getElementById('email').value = "gustavo@email.com";
         document.getElementById('password').value = "123";
         document.getElementById('confirmPassword').value = "123";
@@ -163,10 +163,8 @@
                 if (httpRequest.readyState === 4) {
                     if (httpRequest.status === 200) {
                         console.log(JSON.parse(httpRequest.responseText))
-                        document.getElementById("ajaxButton").className = null;
-                        document.getElementById("cadastroSpinner").classList.remove("visually-hidden");
-                        document.getElementById("ajaxButton").classList.add("btn", "btn-success");
-                        document.getElementById("msg-confirmacao").textContent = JSON.parse(httpRequest.responseText).mensagem;
+                        validarInterfaceGrafica();
+                        registrarUsuario(document.getElementById("name").value, document.getElementById("email").value )
                         setTimeout(function () {
                             window.location.href = "login.html";
                         }, 1000);
@@ -179,8 +177,19 @@
                     }
                 }
             }
+
+            function registrarUsuario(email, nome) {
+                localStorage.setItem(email, nome);
+            }
+
+            function validarInterfaceGrafica() {
+                document.getElementById("ajaxButton").className = null;
+                document.getElementById("cadastroSpinner").classList.remove("visually-hidden");
+                document.getElementById("ajaxButton").classList.add("btn", "btn-success");
+                document.getElementById("msg-confirmacao").textContent = JSON.parse(httpRequest.responseText).mensagem;
+            }
         })();
-        document.getElementById("ajaxButton").click();
+        // document.getElementById("ajaxButton").click();
     </script>
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields

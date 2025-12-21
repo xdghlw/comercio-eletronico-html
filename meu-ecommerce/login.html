@@ -155,7 +155,6 @@
                     if (httpRequest.status === 200) {
                         console.log(JSON.parse(httpRequest.responseText))
                         // console.log(JSON.parse(httpRequest.responseText).user)
-                        localStorage.setItem(JSON.parse(httpRequest.responseText).user.email, JSON.parse(httpRequest.responseText).user.name);
                         localStorage.setItem("usuarioLogado", "true");
                         sucessoValidacao(true);
                         setTimeout(function () {
@@ -181,7 +180,7 @@
                     const toastLiveExample = document.getElementById('liveToast')
                     toastLiveExample.classList.remove("text-bg-danger");
                     toastLiveExample.classList.add("text-bg-success");
-                    document.getElementsByClassName("toast-body")[0].textContent = "Seus dados validados. Seja Bem-vindo(a)!"
+                    document.getElementsByClassName("toast-body")[0].textContent = "Seus dados foram validados. Seja Bem-vindo(a)!"
                     const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
                     toastBootstrap.show()
                 } else {
