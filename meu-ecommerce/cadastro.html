@@ -120,8 +120,6 @@
         document.getElementById('password').value = "123";
         document.getElementById('confirmPassword').value = "123";
 
-        (function () {
-
             var httpRequest;
             document.getElementById("ajaxButton").onclick = function () { makeRequest("https://ppw-1-tads.vercel.app/api/register"); };
 
@@ -188,7 +186,7 @@
                 document.getElementById("ajaxButton").classList.add("btn", "btn-success");
                 document.getElementById("msg-confirmacao").textContent = JSON.parse(httpRequest.responseText).mensagem;
             }
-        })();
+        
         // document.getElementById("ajaxButton").click();
     </script>
     <script>
