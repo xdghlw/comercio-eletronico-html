@@ -55,7 +55,7 @@
   margin-bottom: 10px;
   margin-top: 10px;
   height: 500px;
-  min-height: 500px;
+  /* min-height: 500px; */
 }
 
 #produtos-card {
@@ -84,27 +84,44 @@
 
 .form-login {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
+  margin-top: 200px;
   justify-content: center;
   text-align: center;
   /* background-color: aqua; */
-  height: 90vh;
+  height: 40vh;
+  width: 60vh;
 }
 
-.div-login {
-  max-width: 550px;
-  /* display: flex; */
+.sidebar {
+  height: 100%;
+  width: 180px;
+  padding-top: 20px;
+  background-color: #00488b;
+  /* transition: width 0.3s; */
 }
 
-/* header {
-  text-align: center;
-} */
-
-.card-body {
-  text-align: center;
+.sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  color: white;
 }
 
+.sidebar .description {
+  /* font-size:14px; */
+}
 
+.sidebar .nav-link:hover {
+  background-color: #d8a602;
+}
+
+.main-content {
+  height: 100%;
+  margin-left: 200px;
+  padding: 20px;
+}
 
 
 

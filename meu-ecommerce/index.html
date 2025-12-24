@@ -17,7 +17,7 @@
 
   <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  
+
       <div id="index-container-fluid" class="container-fluid">
 
         <div class="dropdown">
@@ -25,9 +25,9 @@
             aria-expanded="false">
             <i class="bi bi-person-fill"></i>
           </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="login.html">Entrar</a></li>
-            <li><a class="dropdown-item" href="cadastro.html">Cadastrar</a></li>
+          <ul id="cabecalho" class="dropdown-menu">
+            
+
           </ul>
         </div>
 
@@ -37,7 +37,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="produtos.html">Produtos <small><i
                     class="bi bi-bag mx-1"></i></small></a>
@@ -45,7 +45,7 @@
             <li class="nav-item">
               <a class="nav-link active" href="carrinho.html">Carrinho de Compras <i class="bi bi-cart2 mx-1"></i></a>
             </li>
-          </ul> -->
+          </ul>
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="contato.html">Contato<small><i
@@ -59,7 +59,7 @@
 
 
   <main>
-    <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div id="bannerCarousel" class="carousel slide border border-2" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
           <img src="img/motocicleta.png" class="d-block w-100" alt="Produto 1">
@@ -83,7 +83,6 @@
           </div>
         </div>
       </div>
-      <!-- Botões de navegação -->
       <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon"></span>
       </button>
@@ -91,20 +90,53 @@
         <span class="carousel-control-next-icon"></span>
       </button>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        atualizarMenuAvatar();
+      });
+
+      function atualizarMenuAvatar() {
+        const menu = document.getElementById("cabecalho");
+        menu.innerHTML = "";
+
+        const usuarioLogado = localStorage.getItem("usuarioLogado");
+
+        if (!usuarioLogado) {
+          // Usuário NÃO logado
+          menu.innerHTML = `
+          
+      <li>
+        <a class="dropdown-item" href="login.html">Entrar</a>
+      </li>
+      <li>
+          <a class="dropdown-item" href="cadastro.html">Cadastrar</a>
+      </li>
+    `;
+        } else {
+          // Usuário logado
+          menu.innerHTML = `
+      <li>
+        <a class="dropdown-item" href="meus_dados.html">Meus Dados</a>
+      </li>
+      <li>
+        <a class="dropdown-item" href="meus_pedidos.html">Meus Pedidos</a>
+      </li>
+      <li><hr class="dropdown-divider"></li>
+      <li>
+        <a class="dropdown-item text-danger" href="#" onclick="finalizarSessao()">Sair</a>
+      </li>
+    `;
+        }
+      }
+
+      function finalizarSessao() {
+        localStorage.removeItem("usuarioLogado");
+        window.location.href = "index.html";
+      }
+
+    </script>
   </main>
 
-  <hr>
-  <!-- 🧱 Conteúdo principal -->
-  <main class="container text-center my-5">
-    <!-- <h1 class="mb-4">Seja Bem-Vindo(a)!</h1>
-    <p><a href="produtos.html" class="btn btn-outline-success m-2">Acesse a página de produtos</a></p>
-    <p><a href="carrinho.html" class="btn btn-outline-success m-2">Acesse seu carrinho de compras</a></p>
-    <p><a href="contato.html" class="btn btn-outline-success m-2">Entre em contato conosco</a></p> -->
-  </main>
-
-
-  <hr>
-  <!-- ⚓ Rodapé -->
   <footer class="border-top fixed-bottom text-muted bg-light">
     <div class="container">
       <div class="row py-3">
@@ -114,9 +146,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- Bootstrap JS -->
-
 </body>
 
 </html>

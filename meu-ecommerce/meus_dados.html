@@ -12,54 +12,144 @@
 </head>
 
 <body>
+
     <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="index.html">
-                    <i class="bi bi-house-door"></i>
+        <div class="sidebar position-fixed top-1 start-0">
+            <nav class="nav flex-column">
+                <a id="apresentar-dados" class="nav-link" href="">
+                    <span class="icon"><i class="bi bi-person-fill"></i></span>
+                    <span class="description">Dados Pessoais </span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="contato.html">Contato<small><i
-                                        class="bi bi-chat-left-dots mx-1"></i></small></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+                    <!-- <span class="nav-link">
+                        <span class="icon"><i class="bi bi-geo-alt-fill"></i></span>
+                        <span class="description">Meus Endereços</span>
+                    </span> -->
+                <a id="apresentar-enderecos" class="nav-link" href="">
+                    <span class="icon"><i class="bi bi-geo-alt-fill"></i></span>
+                    <span class="description">Meus Endereços</span>
+                </a>
+                <a class="nav-link" href="index.html">
+                    <span class="icon"><i class="bi bi-box-arrow-left"></i></span>
+                    <span class="description">Voltar</span>
+                </a>
+            </nav>
+        </div>
     </header>
-    <main>
 
-        <!-- <ul class="nav flex-column ">
-            <li class="nav-item">
-                <a class="nav-link disabled" aria-current="page" href="#">Menu</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="dados_pessoais.html">Dados Pessoais</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="enderecos.html">Meus Endereços</a>
-            </li>
-        </ul> -->
-
-        <nav class="nav flex-sm-column text-bg-danger p-0">
-            <a class="nav-link disabled"  href="#">Menu</a>
-            <a class="nav-link" href="#">Dados Pessoais</a>
-            <a class="nav-link" href="#">Meus Endereços</a>
-            <!-- <a class="nav-link disabled" aria-disabled="true">Disabled</a> -->
-        </nav>
-        <div>
-            <p>nome</p>
+    <main id="mainn-content" class="main-content">
+        <div class="container-fluid text-center">
+            <h1 class="display-1 mb-5">Dados Pessoais</h1>
         </div>
 
-    </main>
-    <footer></footer>
+        <div class="container-fluid border rounded">
+            <div class="d-flex justify-content-center gap-3 text-center">
+                <div class="col-md-3 my-2" style="max-width: 100px; max-height: 100px;">
+                    <img src="img/tl.webp" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-5 my-auto">
+                    <label for="formFile" class="form-label"><small>Selecione a imagem de perfil.</small></label>
+                    <input class="form-control" type="file" id="formFile">
+                </div>
+            </div>
 
+            <div class="container-fluid mt-3">
+                <div class="input-group flex-nowrap mt-3 w-50 mx-auto">
+                    <span class="input-group-text" id="addon-wrapping"><i class="bi bi-person"></i></span>
+                    <input type="text" class="form-control" placeholder="Nome" aria-label="Nome"
+                        aria-describedby="addon-wrapping">
+                </div>
+                <div class="input-group flex-nowrap mt-3 w-50 mx-auto">
+                    <span class="input-group-text" id="addon-wrapping">@</span>
+                    <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+                        aria-describedby="addon-wrapping">
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto my-3">
+                    <span id="ajaxButton" class="btn btn-primary w-25 mx-auto" type="submit">Atualizar Dados</span>
+                    <!-- <button class="btn btn-primary w-25 mx-auto" type="button">Atualizar Dados</button> -->
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+
+        document.getElementById("apresentar-dados").onclick = function () { renderizarMeusDados(); };
+        document.getElementById("apresentar-enderecos").onclick = function () { renderizarEnderecos(); };
+        document.getElementById("ajaxButton").onclick = function () { requisicaoAtualizarDados(); };
+
+        function renderizarMeusDados() {
+            event.preventDefault();
+            var menu = document.getElementById("mainn-content");
+            menu.innerHTML = `
+            <div class="container-fluid text-center">
+            <h1 class="display-1 mb-5">Dados Pessoais</h1>
+        </div>
+
+        <div class="container-fluid border rounded">
+            <div class="d-flex justify-content-center gap-3 text-center">
+                <div class="col-md-3 my-2" style="max-width: 100px; max-height: 100px;">
+                    <img src="img/tl.webp" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-5 my-auto">
+                    <label for="formFile" class="form-label"><small>Selecione a imagem de perfil.</small></label>
+                    <input class="form-control" type="file" id="formFile">
+                </div>
+            </div>
+
+            <div class="container-fluid mt-3">
+                <div class="input-group flex-nowrap mt-3 w-50 mx-auto">
+                    <span class="input-group-text" id="addon-wrapping"><i class="bi bi-person"></i></span>
+                    <input type="text" class="form-control" placeholder="Nome" aria-label="Nome"
+                        aria-describedby="addon-wrapping">
+                </div>
+                <div class="input-group flex-nowrap mt-3 w-50 mx-auto">
+                    <span class="input-group-text" id="addon-wrapping">@</span>
+                    <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+                        aria-describedby="addon-wrapping">
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto my-3">
+                    <span id="ajaxButton" class="btn btn-primary w-25 mx-auto" type="submit">Atualizar Dados</span>
+                    <!-- <button class="btn btn-primary w-25 mx-auto" type="button">Atualizar Dados</button> -->
+                </div>
+            </div>
+        </div>
+            `
+
+        }
+
+        function renderizarEnderecos() {
+            event.preventDefault();
+            var menu = document.getElementById("mainn-content");
+            menu.innerHTML = ""
+            // menu.remove("visually-hidden");
+        }
+
+        function requisicaoAtualizarDados() {
+            const dadosAtualizados = {
+                nome: "Gustavo",
+                email: "novoemail@example.com"
+            };
+
+            fetch("https://ppw-1-tads.vercel.app/api/user", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dadosAtualizados)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Erro ao atualizar os dados");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Atualização realizada com sucesso:", data);
+                })
+                .catch(error => {
+                    console.error("Erro:", error);
+                });
+        }
+    </script>
 </body>
 
 </html>
