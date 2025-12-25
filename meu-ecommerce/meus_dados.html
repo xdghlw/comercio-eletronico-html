@@ -20,7 +20,7 @@
                     <span class="icon"><i class="bi bi-person-fill"></i></span>
                     <span class="description">Dados Pessoais </span>
                 </a>
-                    <!-- <span class="nav-link">
+                <!-- <span class="nav-link">
                         <span class="icon"><i class="bi bi-geo-alt-fill"></i></span>
                         <span class="description">Meus Endereços</span>
                     </span> -->
@@ -36,49 +36,103 @@
         </div>
     </header>
 
-    <main id="mainn-content" class="main-content">
+    <main id="main-content" class="main-content">
+
+
         <div class="container-fluid text-center">
-            <h1 class="display-1 mb-5">Dados Pessoais</h1>
+            <h1 class="display-1 mb-5">Endereços Cadastrados</h1>
         </div>
 
-        <div class="container-fluid border rounded">
-            <div class="d-flex justify-content-center gap-3 text-center">
-                <div class="col-md-3 my-2" style="max-width: 100px; max-height: 100px;">
-                    <img src="img/tl.webp" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-5 my-auto">
-                    <label for="formFile" class="form-label"><small>Selecione a imagem de perfil.</small></label>
-                    <input class="form-control" type="file" id="formFile">
-                </div>
-            </div>
 
-            <div class="container-fluid mt-3">
-                <div class="input-group flex-nowrap mt-3 w-50 mx-auto">
-                    <span class="input-group-text" id="addon-wrapping"><i class="bi bi-person"></i></span>
-                    <input type="text" class="form-control" placeholder="Nome" aria-label="Nome"
-                        aria-describedby="addon-wrapping">
-                </div>
-                <div class="input-group flex-nowrap mt-3 w-50 mx-auto">
-                    <span class="input-group-text" id="addon-wrapping">@</span>
-                    <input type="text" class="form-control" placeholder="Email" aria-label="Email"
-                        aria-describedby="addon-wrapping">
-                </div>
-                <div class="d-grid gap-2 col-6 mx-auto my-3">
-                    <span id="ajaxButton" class="btn btn-primary w-25 mx-auto" type="submit">Atualizar Dados</span>
-                    <!-- <button class="btn btn-primary w-25 mx-auto" type="button">Atualizar Dados</button> -->
+        <div id="lista-enderecos" class="list-group mb-5 w-100 mx-auto">
+
+        </div>
+
+        <!-- Button trigger modal -->
+
+        <div class="d-grid gap-2 col-2 mx-auto">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Cadastrar Endereço
+            </button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div aria-live="polite" aria-atomic="true"
+                        class="d-flex justify-content-center align-items-center w-100 mt-2">
+
+                        <div id="liveToast" class="toast align-items-center text-bg-danger border-0" role="alert"
+                            aria-live="assertive" aria-atomic="true">
+                            <div class="d-flex">
+                                <div class="toast-body">
+
+                                </div>
+                                <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                                    data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-house-add-fill"></i> Novo
+                            Endereço</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formEndereco">
+                            <div class="input-group mb-3">
+                                <input id="modalEstado" type="text" class="form-control" placeholder="Estado"
+                                    aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <input id="modalCidade" type="text" class="form-control" placeholder="Cidade"
+                                    aria-label="Recipient’s username" aria-describedby="basic-addon2">
+                            </div>
+                            <div class="mb-3">
+                                <div class="input-group">
+                                    <input id="modalBairro" type="text" class="form-control" id="basic-url"
+                                        placeholder="Bairro" aria-describedby="basic-addon3 basic-addon4">
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input id="modalRua" type="text" class="form-control"
+                                    aria-label="Amount (to the nearest dollar)" placeholder="Rua">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="bi bi-123"></i></span>
+                                <input id="modalNumero" type="text" class="form-control" placeholder="Número"
+                                    aria-label="Username">
+                                <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                                <input id="modalCEP" type="text" class="form-control" placeholder="Código Postal"
+                                    aria-label="Server">
+                                <div class="form-text" id="basic-addon4">Nós nunca iremos compartilhar seus dados com
+                                    terceiros.
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button id="modalCadastrar" type="button" class="btn btn-primary btn-success">Cadastrar</button>
+                        <button type="button" class="btn btn-secondary btn-danger"
+                            data-bs-dismiss="modal">Cancelar</button>
+                    </div>
                 </div>
             </div>
         </div>
+
     </main>
     <script>
 
         document.getElementById("apresentar-dados").onclick = function () { renderizarMeusDados(); };
-        document.getElementById("apresentar-enderecos").onclick = function () { renderizarEnderecos(); };
-        document.getElementById("ajaxButton").onclick = function () { requisicaoAtualizarDados(); };
+        // document.getElementById("apresentar-enderecos").onclick = function () { renderizarEnderecos(); };
+        // document.getElementById("ajaxButton").onclick = function () { requisicaoAtualizarDados(); };
+        document.getElementById("modalCadastrar").onclick = function () { cadastrarEndereco(); };
 
         function renderizarMeusDados() {
             event.preventDefault();
-            var menu = document.getElementById("mainn-content");
+            var menu = document.getElementById("main-content");
             menu.innerHTML = `
             <div class="container-fluid text-center">
             <h1 class="display-1 mb-5">Dados Pessoais</h1>
@@ -116,12 +170,91 @@
 
         }
 
-        function renderizarEnderecos() {
-            event.preventDefault();
-            var menu = document.getElementById("mainn-content");
-            menu.innerHTML = ""
-            // menu.remove("visually-hidden");
+        function adicionarItemLista(titulo, data, descricao, rodape, ativo = false) {
+            const lista = document.getElementById("lista-enderecos");
+            if (!lista) return;
+
+            const item = document.createElement("a");
+            item.href = "#";
+            item.className = "list-group-item list-group-item-action";
+
+            if (ativo) {
+                item.classList.add("active");
+                item.setAttribute("aria-current", "true");
+            }
+
+            item.innerHTML = `
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">${titulo}</h5>
+            <small class="${ativo ? '' : 'text-body-secondary'}">${data}</small>
+        </div>
+        <p class="mb-1">${descricao}</p>
+        <small class="${ativo ? '' : 'text-body-secondary'}">${rodape}</small>
+    `;
+
+            lista.appendChild(item);
         }
+
+        adicionarItemLista(
+            "List group item heading",
+            "3 days ago",
+            "Some placeholder content in a paragraph.",
+            "And some small print.",
+            true
+        );
+
+        adicionarItemLista(
+            "Outro endereço",
+            "1 day ago",
+            "Outro conteúdo de exemplo.",
+            "Texto secundário"
+        );
+        adicionarItemLista(
+            "Outro endereço",
+            "1 day ago",
+            "Outro conteúdo de exemplo.",
+            "Texto secundário"
+        );
+
+
+
+
+
+        function cadastrarEndereco() {
+
+            let listaEnderecos = new Array();
+
+            const endereco = {
+                // id : localStorage.getItem("enderecos").length + 1,
+                estado: document.getElementById("modalEstado").value,
+                cidade: document.getElementById("modalCidade").value,
+                bairro: document.getElementById("modalBairro").value,
+                rua: document.getElementById("modalRua").value,
+                numero: document.getElementById("modalNumero").value,
+                cep: document.getElementById("modalCEP").value
+            };
+
+            if (localStorage.hasOwnProperty("enderecos")) {
+                listaEnderecos = JSON.parse(localStorage.getItem("enderecos"));
+            }
+            listaEnderecos.push(endereco);
+            localStorage.setItem("enderecos", JSON.stringify(listaEnderecos));
+
+            //Toast de confirmação de cadastro de novo endereço.
+            console.log(listaEnderecos);
+            const toastLiveExample = document.getElementById('liveToast')
+            toastLiveExample.classList.remove("text-bg-danger");
+            toastLiveExample.classList.add("text-bg-success");
+            document.getElementsByClassName("toast-body")[0].textContent = "Endereço cadastrado com sucesso!"
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+            toastBootstrap.show()
+            document.getElementById("formEndereco").reset();
+        }
+
+        function renderizarEnderecos() {
+
+        }
+
 
         function requisicaoAtualizarDados() {
             const dadosAtualizados = {
