@@ -66,7 +66,7 @@
       <!-- painel principal -->
       <div class="carousel-inner bg-secondary" style="--bs-bg-opacity: .8;">
         <div class="carousel-item active">
-          <img src="img/aviao-voando.png" class="d-block w-100" alt="...">
+          <img src="img/aviao-voando.png" class="d-block mx-auto" alt="...">
           <div class="carousel-caption d-none d-md-block">
             <h5>First slide label</h5>
             <p>Some representative placeholder content for the first slide.</p>
@@ -85,72 +85,29 @@
       </button>
     </div>
 
-    <div class="container text-center mt-5">
+    <div class="container text-center mt-3 p-5">
       <!-- carroulsel secundário -->
-      <div id="carouselExample" class="carousel slide">
-        <div class="carousel-inner py-3 px-4">
-          <div class="carousel-item active">
-            <div class="row row-cols-1 row-cols-md-4 g-3 justify-content-center">
-              <div class="col">
-                <div class="card h-100">
-                  <img src="img/motocicleta.png" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                      additional content. This content is a little bit longer.</p>
-                  </div>
-                  <div class="card-footer">
-                    <small class="text-body-secondary">Last updated 3 mins ago</small>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="card h-100">
-                  <img src="img/bicylce.png" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional
-                      content.</p>
-                  </div>
-                  <div class="card-footer">
-                    <small class="text-body-secondary">Last updated 3 mins ago</small>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="card h-100">
-                  <img src="img/helicoptero.png" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                      additional content. This card has even longer content than the first to show that equal height
-                      action.</p>
-                  </div>
-                  <div class="card-footer">
-                    <small class="text-body-secondary">Last updated 3 mins ago</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+      <div id="carouselExample" class="carousel slide position-relative">
+        <div class="carousel-inner py-2 px-5">
+          <!-- cardsgroups -->
         </div>
+        <button class="carousel-control-prev position-absolute top-50 start-0 translate-middle" type="button" data-bs-target="#carouselExample"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next top-50 start-100 translate-middle" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
+    </div>
   </main>
 
-
-
-  <footer class="mt-5 border-top text-muted bg-light">
+  <footer class="mt-2 border-top text-muted bg-light">
     <div class="container">
       <div class="row py-3">
-        <div class="col-12 cold-md-4 text-center text-md-left">
+        <div class="col-12 col-md-4 text-center mx-auto">
           Loja Virtual 2025 &reg;
         </div>
       </div>
@@ -198,6 +155,66 @@
       localStorage.removeItem("usuarioLogado");
       window.location.href = "index.html";
     }
+
+    function montarCarousel(produtos) {
+      const carouselInner = document.querySelector("#carouselExample .carousel-inner");
+
+      // limpa conteúdo inicial (se existir HTML estático)
+      // carouselInner.innerHTML = "";
+
+      for (let i = 0; i < produtos.length; i += 3) {
+
+        // cria o slide
+        const carouselItem = document.createElement("div");
+        carouselItem.classList.add("carousel-item");
+        // carouselItem.classList.add("mx-5");
+
+        // primeiro slide ativo
+        if (i === 0) {
+          carouselItem.classList.add("active");
+        }
+
+        // cria o card group (row)
+        const row = document.createElement("div");
+        row.className = "row row-cols-1 row-col-md-4 row-cols-lg-6 justify-content-center";
+
+        // cria até 3 cards por slide
+        produtos.slice(i, i + 3).forEach(produto => {
+
+          const col = document.createElement("div");
+          col.className = "col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-12 col-14 p-5";
+
+          col.innerHTML = `
+        <div class="card">
+          <img src="${produto.image}" class="card-img-top mt-3" alt="${produto.name}">
+          <div class="card-body">
+            <h5 class="card-title align-items-center">${produto.name}</h5>
+            <p class="card-text">${produto.description}</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-body-secondary">
+              R$ ${produto.price.toFixed(2)}
+            </small>
+          </div>
+        </div>
+      `;
+
+          row.appendChild(col);
+        });
+
+        carouselItem.appendChild(row);
+        carouselInner.appendChild(carouselItem);
+      }
+    }
+
+    fetch("https://ppw-1-tads.vercel.app/api/products")
+      .then(response => response.json())
+      .then(data => {
+        montarCarousel(data.products);
+      })
+      .catch(error => console.error(error));
+
+
 
   </script>
 </body>
