@@ -125,13 +125,13 @@
     </main>
     <script>
 
-        document.getElementById("apresentar-dados").onclick = function () { renderizarMeusDados(); };
+        document.getElementById("apresentar-dados").onclick = function () { renderizarDadosPessoais(); };
         // document.getElementById("apresentar-enderecos").onclick = function () { renderizarEnderecos(); };
         // document.getElementById("ajaxButton").onclick = function () { requisicaoAtualizarDados(); };
         document.getElementById("modalCadastrar").onclick = function () { cadastrarEndereco(); };
         const indice = 1;
 
-        function renderizarMeusDados() {
+        function renderizarDadosPessoais() {
             event.preventDefault();
             var menu = document.getElementById("main-content");
             menu.innerHTML = `
@@ -153,17 +153,16 @@
             <div class="container-fluid mt-3">
                 <div class="input-group flex-nowrap mt-3 w-50 mx-auto">
                     <span class="input-group-text" id="addon-wrapping"><i class="bi bi-person"></i></span>
-                    <input type="text" class="form-control" placeholder="Nome" aria-label="Nome"
+                    <input id="atualizarNome" type="text" class="form-control" placeholder="Nome" aria-label="Nome"
                         aria-describedby="addon-wrapping">
                 </div>
                 <div class="input-group flex-nowrap mt-3 w-50 mx-auto">
                     <span class="input-group-text" id="addon-wrapping">@</span>
-                    <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+                    <input id="atualizarEmail" type="text" class="form-control" placeholder="Email" aria-label="Email"
                         aria-describedby="addon-wrapping">
                 </div>
                 <div class="d-grid gap-2 col-6 mx-auto my-3">
-                    <span id="ajaxButton" class="btn btn-primary w-25 mx-auto" type="submit">Atualizar Dados</span>
-                    <!-- <button class="btn btn-primary w-25 mx-auto" type="button">Atualizar Dados</button> -->
+                    <button class="btn btn-primary w-25 mx-auto" type="button" onclick="requisicaoAtualizarDados()">Atualizar Dados</button>
                 </div>
             </div>
         </div>
@@ -171,7 +170,7 @@
 
         }
 
-        function adicionarItemLista(id, estado, cidade, bairro, rua, numero, cep, ativo=false) {
+        function renderizarEndereco(id, estado, cidade, bairro, rua, numero, cep, ativo = false) {
             const lista = document.getElementById("lista-enderecos");
             if (!lista) return;
 
@@ -185,56 +184,39 @@
             }
 
             item.innerHTML = `
-        <div class="d-flex w-70 justify-content-between">
-            <h5 class="mb-1">Rua ${rua} nº ${numero}</h5>
-            <small class="${ativo ? '' : 'text-body-secondary'}"></small>
-            <small id="idEndereco" class="invisible">${id}</small>
-            <div class="input-group align-items-center justify-content-end">
-                <button id="excluirEndereco "type="button" class="btn btn-outline-danger btn-sm">
-                                        <i class="bi bi-trash text-danger"></i>
-                                    </button>            
-                                     </div>
-        </div>
-
-        <p class="mb-1">${bairro}</p>
-        <small class="${ativo ? '' : 'text-body-secondary'}">${cidade}, ${estado}</small>
-        <br>
-        <small class="text-body-secondary">Código Postal: ${cep}</small>
-    `;
-
+            <div class="d-flex w-70 justify-content-between">
+                <h5 class="mb-1">Rua ${rua} nº ${numero}</h5>
+                <small class="${ativo ? '' : 'text-body-secondary'}"></small>
+                <small id="idEndereco" class="invisible">${id}</small>
+                <div class="input-group align-items-center justify-content-end">
+                    <button id="excluirEndereco "type="button" class="btn btn-outline-danger btn-sm">
+                        <i class="bi bi-trash text-danger"></i>
+                    </button>            
+                </div>
+            </div>
+            <p class="mb-1">${bairro}</p>
+            <small class="${ativo ? '' : 'text-body-secondary'}">${cidade}, ${estado}</small>
+            <br>
+            <small class="text-body-secondary">Código Postal: ${cep}</small>
+            `;
             lista.appendChild(item);
         }
 
 
         function obterEnderecos() {
-
-            const campos = [
-                "modalEstado",
-                "modalCidade",
-                "modalBairro",
-                "modalRua",
-                "modalNumero",
-                "modalCEP"
-            ];
-
             let enderecos = localStorage.getItem("enderecos");
             JSON.parse(enderecos).forEach(element => {
-                adicionarItemLista(element.id, element.estado, element.cidade, element.bairro, element.rua, element.numero, element.cep, 0)
+                renderizarEndereco(element.id, element.estado, element.cidade, element.bairro, element.rua, element.numero, element.cep, 0)
             });
-
-            
-
-
         }
         obterEnderecos();
 
 
         function cadastrarEndereco() {
-
             let listaEnderecos = new Array();
 
             const endereco = {
-                id : indice + 1,
+                id: indice + 1,
                 estado: document.getElementById("modalEstado").value,
                 cidade: document.getElementById("modalCidade").value,
                 bairro: document.getElementById("modalBairro").value,
@@ -260,15 +242,10 @@
             document.getElementById("formEndereco").reset();
         }
 
-        function renderizarEnderecos() {
-
-        }
-
-
         function requisicaoAtualizarDados() {
             const dadosAtualizados = {
-                nome: "Gustavo",
-                email: "novoemail@example.com"
+                nome: document.getElementById("atualizarNome").value,
+                email: document.getElementById("atualizarEmail").value
             };
 
             fetch("https://ppw-1-tads.vercel.app/api/user", {
