@@ -1,5 +1,6 @@
       function atualizarMenuAvatar() {
-        const menu = document.getElementById("cabecalho");
+        const menu = document.getElementById("cabecalho");  
+        // const menu = document.getElementsByTagName("header");  
         menu.innerHTML = "";
 
         const usuarioLogado = localStorage.getItem("usuarioLogado");

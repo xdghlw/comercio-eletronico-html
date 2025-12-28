@@ -129,6 +129,7 @@
         // document.getElementById("apresentar-enderecos").onclick = function () { renderizarEnderecos(); };
         // document.getElementById("ajaxButton").onclick = function () { requisicaoAtualizarDados(); };
         document.getElementById("modalCadastrar").onclick = function () { cadastrarEndereco(); };
+        document.getElementById("excluirEndereco").onclick = function () { (); };
         const indice = 1;
 
         function renderizarDadosPessoais() {
@@ -189,7 +190,7 @@
                 <small class="${ativo ? '' : 'text-body-secondary'}"></small>
                 <small id="idEndereco" class="invisible">${id}</small>
                 <div class="input-group align-items-center justify-content-end">
-                    <button id="excluirEndereco "type="button" class="btn btn-outline-danger btn-sm">
+                    <button id="excluirEndereco" type="button" class="btn btn-outline-danger btn-sm">
                         <i class="bi bi-trash text-danger"></i>
                     </button>            
                 </div>
