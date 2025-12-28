@@ -130,15 +130,23 @@
             if (!botao) return;
 
             const idProduto = botao.dataset.id;
-            console.log("Produto clicado:", idProduto);
-            adicionarCarrinho(idProduto - 1);
+            // console.log("Produto clicado:", idProduto);
+            adicionarCarrinho(idProduto);
         });
 
         function adicionarCarrinho(idProduto) {
-            console.log(JSON.parse(localStorage.getItem("produtos"))[idProduto]);
-            
+            let carrinhoDeCompras = [];
+            let produto;
+                        
+            if (localStorage.hasOwnProperty("carrinho") && localStorage.getItem("carrinho").length !== 0) {
+                carrinhoDeCompras = JSON.parse(localStorage.getItem("carrinho"));
+            }
+            localStorage.removeItem("carrinho");
+            produto = JSON.parse(localStorage.getItem("produtos"))[idProduto - 1];
+            carrinhoDeCompras.push(produto);
+            localStorage.setItem("carrinho", JSON.stringify(carrinhoDeCompras));
+            console.log(JSON.parse(localStorage.getItem("produtos"))[idProduto - 1]);
         }
-        
     </script>
 
     <script>
