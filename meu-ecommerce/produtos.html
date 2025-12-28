@@ -14,12 +14,12 @@
 </head>
 
 <body>
-    <header id="header">
+    <header id="header" class="">
         <!-- Navbar bootstrap -->
         <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="">
             <div id="index-container-fluid" class="container-fluid">
 
-                <div class="dropdown">
+                <div class="dropdown mt-0">
                     <button class="btn btn-secondary dropdown-toggle bg-primary" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <i class="bi bi-person-fill"></i>
@@ -35,7 +35,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse mt-0" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-2">
                         <li class="nav-item">
                             <a class="btn btn-primary nav-link " href="index.html">
@@ -46,10 +46,10 @@
 
                         <li class="nav-item">
                             <a class="btn btn-primary nav-link" href="">
-                                <div class="d-inline position-relative">
+                                <div class="d-inline position-relative" style="padding-top: 5px;">
                                     <i class="bi bi-cart2 mx-1"></i>
-                                    <small><span
-                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger">+99</span></small>
+                                    <small><small><span
+                                            id="qtde-carrinho" class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger opacity-100 border border-light"></span></small></small>
                                 </div>
                                 Carrinho
                             </a>
@@ -137,7 +137,7 @@
         function adicionarCarrinho(idProduto) {
             let carrinhoDeCompras = [];
             let produto;
-                        
+
             if (localStorage.hasOwnProperty("carrinho") && localStorage.getItem("carrinho").length !== 0) {
                 carrinhoDeCompras = JSON.parse(localStorage.getItem("carrinho"));
             }
@@ -146,7 +146,16 @@
             carrinhoDeCompras.push(produto);
             localStorage.setItem("carrinho", JSON.stringify(carrinhoDeCompras));
             console.log(JSON.parse(localStorage.getItem("produtos"))[idProduto - 1]);
+            atualizarBadge();
         }
+
+        function atualizarBadge() {
+            document.getElementById("qtde-carrinho").textContent = "+".concat(JSON.parse(localStorage.getItem("carrinho")).length);
+        }
+            
+        atualizarBadge();    
+
+
     </script>
 
     <script>
