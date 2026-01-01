@@ -45,7 +45,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="btn btn-primary nav-link" href="">
+                            <a class="btn btn-primary nav-link" href="carrinho.html">
                                 <div class="d-inline position-relative" style="padding-top: 5px;">
                                     <i class="bi bi-cart2 mx-1"></i>
                                     <small><small><span
@@ -140,6 +140,7 @@
 
             if (localStorage.hasOwnProperty("carrinho") && localStorage.getItem("carrinho").length !== 0) {
                 carrinhoDeCompras = JSON.parse(localStorage.getItem("carrinho"));
+                
             }
             localStorage.removeItem("carrinho");
             produto = JSON.parse(localStorage.getItem("produtos"))[idProduto - 1];
