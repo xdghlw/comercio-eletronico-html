@@ -35,7 +35,7 @@
         <div class="container-fluid text-center">
             <h1 class="display-1 mb-5">Endereços Cadastrados</h1>
         </div>
-        
+
         <!-- Lista de endereços e botão de cadastro; será preenchida com JavaScript -->
         <div id="lista-enderecos" class="list-group w-50 mx-auto gap-2 mb-3"></div>
         <div class="d-grid gap-2 col-md-3 col-xxl-2 mx-auto">
@@ -115,7 +115,7 @@
         // document.getElementById("ajaxButton").onclick = function () { requisicaoAtualizarDados(); };
         document.getElementById("modalCadastrar").onclick = function () { cadastrarEndereco(); };
         // document.getElsementById("excluirEndereco").onclick = function () { (); };
-        const indice = 1;
+        // var indice = 1;
 
         function renderizarDadosPessoais() {
             event.preventDefault();
@@ -193,18 +193,24 @@
         }
 
         function obterEnderecos() {
-            let enderecos = localStorage.getItem("enderecos");
-            JSON.parse(enderecos).forEach(element => {
-                renderizarEndereco(element.id, element.estado, element.cidade, element.bairro, element.rua, element.numero, element.cep, 0)
-            });
+            let objetoEnderecos = localStorage.getItem("enderecos");
+            try {
+                Object.keys(JSON.parse(objetoEnderecos)).forEach(chave => {
+                    var endereco = JSON.parse(objetoEnderecos)[chave];
+                    renderizarEndereco(chave, endereco.estado, endereco.cidade, endereco.bairro, endereco.rua, endereco.numero, endereco.cep, 0)
+                });
+            } catch (error) { }
         }
         obterEnderecos();
 
+
+
+
         function cadastrarEndereco() {
-            let listaEnderecos = new Array();
+            let listaEnderecos = {};
+            var indice;
 
             const endereco = {
-                id: indice + 1,
                 estado: document.getElementById("modalEstado").value,
                 cidade: document.getElementById("modalCidade").value,
                 bairro: document.getElementById("modalBairro").value,
@@ -213,14 +219,17 @@
                 cep: document.getElementById("modalCEP").value
             };
 
-            if (localStorage.hasOwnProperty("enderecos")) {
+            if (localStorage.hasOwnProperty("enderecos") && localStorage.getItem("enderecos").length !== 0) {
                 listaEnderecos = JSON.parse(localStorage.getItem("enderecos"));
-            }
-            listaEnderecos.push(endereco);
+            } 
+            // localStorage.removeItem("enderecos");
+            indice = Object.keys(listaEnderecos).length;
+            listaEnderecos[indice + 1] = endereco;
+            console.log(listaEnderecos);
             localStorage.setItem("enderecos", JSON.stringify(listaEnderecos));
 
             //Toast de confirmação de cadastro de novo endereço.
-            console.log(listaEnderecos);
+            // console.log(listaEnderecos);
             const toastLiveExample = document.getElementById('liveToast')
             toastLiveExample.classList.remove("text-bg-danger");
             toastLiveExample.classList.add("text-bg-success");
@@ -258,4 +267,5 @@
         }
     </script>
 </body>
+
 </html>
