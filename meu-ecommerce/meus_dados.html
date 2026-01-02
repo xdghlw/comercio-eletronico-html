@@ -111,11 +111,7 @@
     </main>
     <script>
         document.getElementById("dados-pessoais").onclick = function () { renderizarDadosPessoais(); };
-        // document.getElementById("enderecos-pessoais").onclick = function () { renderizarEnderecos(); };
-        // document.getElementById("ajaxButton").onclick = function () { requisicaoAtualizarDados(); };
-        document.getElementById("modalCadastrar").onclick = function () { cadastrarEndereco(); };
-        // document.getElsementById("excluirEndereco").onclick = function () { (); };
-        // var indice = 1;
+        document.getElementById("modalCadastrar").onclick = function () { cadastrarNovoEndereco(); };
 
         function renderizarDadosPessoais() {
             event.preventDefault();
@@ -152,48 +148,43 @@
                 </div>
             </div>
         </div>
-            `
+            `;
 
         }
 
-        function renderizarEndereco() {
+        function obterEnderecos() {
+            try {
+                return JSON.parse(localStorage.getItem("enderecos")) || {};
+            } catch {
+                return {};
+            }
+        }
+
+        function renderizarListaEnderecos() {
             const lista = document.getElementById("lista-enderecos");
             if (!lista) return;
 
             lista.innerHTML = "";
 
-            let objetoEnderecos;
+            const enderecos = obterEnderecos();
+            const chaves = Object.keys(enderecos);
 
-            try {
-                objetoEnderecos = JSON.parse(localStorage.getItem("enderecos"));
-            } catch (error) {
-                objetoEnderecos = null;
-            }
-
-            // 👉 Caso NÃO existam endereços
-            if (!objetoEnderecos || Object.keys(objetoEnderecos).length === 0) {
-                const item = document.createElement("div");
-                item.className =
-                    "list-group-item border rounded text-center py-4 text-body-secondary";
-
-                item.innerHTML = `
-            <i class="bi bi-geo-alt fs-4 mb-2 d-block"></i>
-            <p class="mb-0">Não existem endereços cadastrados.</p>
-        `;
-
-                lista.appendChild(item);
+            if (chaves.length === 0) {
+                lista.appendChild(criarCardVazio());
                 return;
             }
 
-            // 👉 Caso existam endereços
-            Object.keys(objetoEnderecos).forEach(id => {
-                const endereco = objetoEnderecos[id];
+            chaves.forEach(id => {
+                lista.appendChild(criarCardEndereco(id, enderecos[id]));
+            });
+        }
 
-                const item = document.createElement("div");
-                item.className =
-                    "list-group-item list-group-item-action border rounded d-flex justify-content-between align-items-center ps-3 py-2";
+        function criarCardEndereco(id, endereco) {
+            const item = document.createElement("div");
+            item.className =
+                "list-group-item list-group-item-action border rounded d-flex justify-content-between align-items-center ps-3 py-2";
 
-                item.innerHTML = `
+            item.innerHTML = `
             <div class="flex-grow-1">
                 <h5 class="mb-1">
                     <span class="text-capitalize">Rua ${endereco.rua}</span>
@@ -206,7 +197,6 @@
                         Código Postal: ${endereco.cep}
                     </small>
                 </p>
-                <span hidden>${id}</span>
             </div>
 
             <button 
@@ -215,34 +205,39 @@
                 data-id="${id}">
                 <i class="bi bi-trash"></i>
             </button>
-        `;
+            `;
 
-                lista.appendChild(item);
+            item.querySelector("button").addEventListener("click", () => {
+                excluirEndereco(id);
             });
+
+            return item;
         }
 
-        renderizarEndereco();
+        function criarCardVazio() {
+            const item = document.createElement("div");
+            item.className =
+                "list-group-item border rounded text-center py-4 text-body-secondary";
 
-        function obterEnderecos() {
-            let objetoEnderecos = localStorage.getItem("enderecos");
-            console.log(objetoEnderecos.length);
+            item.innerHTML = `
+            <i class="bi bi-geo-alt fs-4 mb-2 d-block"></i>
+            <p class="mb-0">Não existem endereços cadastrados.</p>
+            `;
 
-            try {
-                // console.log(Object.keys(JSON.parse(objetoEnderecos)).length);
-                Object.keys(JSON.parse(objetoEnderecos)).forEach(chave => {
-                    var endereco = JSON.parse(objetoEnderecos)[chave];
-                    console.log(endereco);
-
-                    renderizarEndereco(chave, endereco.estado, endereco.cidade, endereco.bairro, endereco.rua, endereco.numero, endereco.cep)
-                });
-            } catch (error) { }
+            return item;
         }
-        // obterEnderecos();
 
+        function excluirEndereco(id) {
+            const enderecos = obterEnderecos();
+            if (!enderecos[id]) return;
+            delete enderecos[id];
+            localStorage.setItem("enderecos", JSON.stringify(enderecos));
+            renderizarListaEnderecos();
+        }
 
+        renderizarListaEnderecos();
 
-
-        function cadastrarEndereco() {
+        function cadastrarNovoEndereco() {
             let listaEnderecos = {};
             var indice;
 
@@ -296,6 +291,7 @@
                 .then(response => {
                     if (!response.ok) {
                         throw new Error("Erro ao atualizar os dados");
+                        console.log(response.json());
                     }
                     return response.json();
                 })
