@@ -15,7 +15,6 @@
 
 <body>
     <header id="header" class="">
-        <!-- Navbar bootstrap -->
         <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="">
             <div id="index-container-fluid" class="container-fluid">
 
@@ -68,7 +67,15 @@
     </header>
 
     <!-- SEÇÃO PRINCIPAL -->
-    <main class="container my-4"></main>
+    <main class="container my-4">
+        <div class="toast-container position-fixed p-3" style="bottom:25px; left: 40%;">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-body p-3 text-center"></div>
+            </div>
+        </div>
+        <div id="lista-produtos" class="mt-5"></div>
+    </main>
+    <footer></footer>
 
     <script>
         const API_URL = "https://ppw-1-tads.vercel.app/api/products";
@@ -90,12 +97,13 @@
                 });
 
                 localStorage.setItem("produtos", JSON.stringify(persistenciaProdutos));
-                montarCards()
             })
+
 
         function montarCards() {
             const main = document.querySelector("main");
-            main.innerHTML = "";
+            const container = document.getElementById("lista-produtos");
+            container.innerHTML = "";
             let row;
             var produtos = JSON.parse(localStorage.getItem("produtos"));
 
@@ -119,7 +127,7 @@
                     <h5 class="card-title text-center">${produto.name}</h5>
                     <p class="card-text text-center">${produto.description}</p>
                     <p class="card-text text-center text-body-secondary">R$ ${produto.price.toFixed(2)}</p>
-                    <button class="btn btn-primary mt-auto add-cart" data-id=${idProduto}>
+                    <button id="liveToastBtn" class="btn btn-primary mt-auto add-cart" data-id=${idProduto}>
                     Adicionar ao Carrinho
                     </button>
                 </div>
@@ -128,6 +136,7 @@
                 row.appendChild(col);
             });
         }
+        montarCards()
 
         document.querySelector("main").addEventListener("click", function (event) {
             const botao = event.target.closest("button[data-id]");
@@ -136,6 +145,19 @@
             // console.log(idProduto);
             adicionarCarrinho(idProduto);
         });
+
+
+        function confirmarAcao() {
+            const toastLiveExample = document.getElementById("liveToast");
+            toastLiveExample.classList.add("text-bg-success");
+            document.getElementsByClassName("toast-body")[0].innerHTML = `
+                <span style="fontsize: 100px"><i class="bi bi-check-square mx-2"></i></span>
+                O produto foi adicionado ao carrinho.
+            `;
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+            toastBootstrap.show();
+        }
+
 
         function adicionarCarrinho(idProduto) {
             let carrinhoDeCompras = {};
@@ -147,9 +169,10 @@
                     if (JSON.parse(localStorage.getItem("carrinho")).hasOwnProperty(idProduto)) {
                         carrinhoDeCompras[idProduto].quantidade += 1;
                         localStorage.setItem("carrinho", JSON.stringify(carrinhoDeCompras));
+                        confirmarAcao();
                         atualizarBadge();
                         return;
-                    } 
+                    }
                 }
                 localStorage.removeItem("carrinho");
                 carrinhoDeCompras[idProduto] = { quantidade: 1 };
@@ -160,6 +183,7 @@
             }
         }
 
+        // adicionarCarrinho(1);
         function atualizarBadge() {
             try {
                 let qtdeCarrinho = 0;
@@ -167,7 +191,7 @@
                 Object.keys(objetoProdutos).forEach(produtoId => {
                     qtdeCarrinho += objetoProdutos[produtoId].quantidade
                 });
-                
+
                 document.getElementById("qtde-carrinho").textContent = "+".concat(qtdeCarrinho);
             } catch (SyntaxError) {
                 // console.log("Carrinho vazio");
@@ -216,18 +240,17 @@
             atualizarMenuAvatar();
         });
     </script>
-    <script>
-        // produtos = JSON.parse(localStorage.getItem("produtos"));
-        // const produtosPorId = {};
-        // produtos.forEach(element => {
-        //     const { id, ...resto } = element;
-        //     produtosPorId[id] = {
-        //         ...resto,
-        //         quantidade : 0
-        //     };
-        // });
-        // console.log(produtosPorId[1]);
-    </script>
+    <!-- <script>
+        const toastTrigger = document.getElementById('liveToastBtn')
+        const toastLiveExample = document.getElementById('liveToast')
+
+        if (toastTrigger) {
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+            toastTrigger.addEventListener('click', () => {
+                toastBootstrap.show()
+            })
+        }
+    </script> -->
 
 </body>
 
