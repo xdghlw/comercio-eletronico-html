@@ -20,7 +20,7 @@
             <div id="index-container-fluid" class="container-fluid">
 
                 <div class="dropdown mt-0">
-                    <button class="btn btn-secondary dropdown-toggle bg-primary" type="button" data-bs-toggle="dropdown"
+                    <button class="btn btn-primary dropdown-toggle border-light" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <i class="bi bi-person-fill"></i>
                     </button>
@@ -48,8 +48,8 @@
                             <a class="btn btn-primary nav-link" href="carrinho.html">
                                 <div class="d-inline position-relative" style="padding-top: 5px;">
                                     <i class="bi bi-cart2 mx-1"></i>
-                                    <small><small><span
-                                            id="qtde-carrinho" class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger opacity-100 border border-light"></span></small></small>
+                                    <small><small><span id="qtde-carrinho"
+                                                class="position-absolute top-0 start-50 translate-middle badge rounded-pill text-bg-danger opacity-100 border border-light"></span></small></small>
                                 </div>
                                 Carrinho
                             </a>
@@ -57,7 +57,7 @@
                     </ul>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="contato.html">Contato<small><i
+                            <a class="btn btn-primary nav-link" aria-current="page" href="contato.html">Contato<small><i
                                         class="bi bi-chat-left-dots mx-1"></i></small></a>
                         </li>
                     </ul>
@@ -68,14 +68,11 @@
     </header>
 
     <!-- SEÇÃO PRINCIPAL -->
-    <!-- SEÇÃO PRINCIPAL -->
     <main class="container my-4"></main>
 
     <script>
         const API_URL = "https://ppw-1-tads.vercel.app/api/products";
         const CARDS_POR_ROW = 4;
-        let produtosVetor = [];
-
 
         fetch(API_URL)
             .then(res => {
@@ -83,80 +80,101 @@
                 return res.json();
             })
             .then(data => {
-                // produtosVetor = data.products;
-                // console.log(produtosVetor.length);
-                localStorage.setItem("produtos", JSON.stringify(data.products));
-                montarCards(data.products)
+                // console.log(data.products)
+                produtos = JSON.parse(localStorage.getItem("produtos"));
+                const objetoProdutos = {};
+                const persistenciaProdutos = {};
+
+                data.products.forEach(({ id, ...resto }) => {
+                    persistenciaProdutos[id] = resto;
+                });
+
+                localStorage.setItem("produtos", JSON.stringify(persistenciaProdutos));
+                montarCards()
             })
 
-        function montarCards(produtos) {
+        function montarCards() {
             const main = document.querySelector("main");
             main.innerHTML = "";
-
             let row;
+            var produtos = JSON.parse(localStorage.getItem("produtos"));
 
-            produtos.forEach((produto, index) => {
-
+            Object.keys(produtos).forEach((idProduto, index) => {
+                produto = produtos[idProduto]
                 // cria uma nova row a cada 4 cards
                 if (index % CARDS_POR_ROW === 0) {
                     row = document.createElement("div");
                     row.className = "row row-cols-1 row-cols-xxl-4 row-cols-md-2 g-5 mb-4";
                     main.appendChild(row);
+                    // console.log(index);
                 }
 
                 const col = document.createElement("div");
                 col.className = "col";
 
                 col.innerHTML = `
-        <div id="${produto.id}" class="card h-100">
-          <img src="${produto.image}" class="card-img-top p-2" alt="${produto.name}">
-          <div class="card-body d-flex flex-column border-top">
-            <h5 class="card-title text-center">${produto.name}</h5>
-            <p class="card-text text-center">${produto.description}</p>
-            <p class="card-text text-center text-body-secondary">R$ ${produto.price.toFixed(2)}</p>
-            <button class="btn btn-primary mt-auto add-cart" data-id=${produto.id}>
-              Adicionar ao Carrinho
-            </button>
-          </div>
-        </div>
-      `;
+                <div id="${idProduto}" class="card h-100">
+                <img src="${produto.image}" class="card-img-top p-2" alt="${produto.name}">
+                <div class="card-body d-flex flex-column border-top">
+                    <h5 class="card-title text-center">${produto.name}</h5>
+                    <p class="card-text text-center">${produto.description}</p>
+                    <p class="card-text text-center text-body-secondary">R$ ${produto.price.toFixed(2)}</p>
+                    <button class="btn btn-primary mt-auto add-cart" data-id=${idProduto}>
+                    Adicionar ao Carrinho
+                    </button>
+                </div>
+                </div>
+                `;
                 row.appendChild(col);
             });
-            // console.log(document.getElementsByClassName("add-cart")[0].parentNode.parentNode);
         }
+
         document.querySelector("main").addEventListener("click", function (event) {
             const botao = event.target.closest("button[data-id]");
-
             if (!botao) return;
-
             const idProduto = botao.dataset.id;
-            // console.log("Produto clicado:", idProduto);
+            // console.log(idProduto);
             adicionarCarrinho(idProduto);
         });
 
         function adicionarCarrinho(idProduto) {
-            let carrinhoDeCompras = [];
+            let carrinhoDeCompras = {};
             let produto;
 
-            if (localStorage.hasOwnProperty("carrinho") && localStorage.getItem("carrinho").length !== 0) {
-                carrinhoDeCompras = JSON.parse(localStorage.getItem("carrinho"));
-                
+            try {
+                if (localStorage.hasOwnProperty("carrinho") && localStorage.getItem("carrinho").length !== 0) {
+                    carrinhoDeCompras = JSON.parse(localStorage.getItem("carrinho"));
+                    if (JSON.parse(localStorage.getItem("carrinho")).hasOwnProperty(idProduto)) {
+                        carrinhoDeCompras[idProduto].quantidade += 1;
+                        localStorage.setItem("carrinho", JSON.stringify(carrinhoDeCompras));
+                        atualizarBadge();
+                        return;
+                    } 
+                }
+                localStorage.removeItem("carrinho");
+                carrinhoDeCompras[idProduto] = { quantidade: 1 };
+                localStorage.setItem("carrinho", JSON.stringify(carrinhoDeCompras));
+                atualizarBadge();
+            } catch (SyntaxError) {
+                console.log(SyntaxError);
             }
-            localStorage.removeItem("carrinho");
-            produto = JSON.parse(localStorage.getItem("produtos"))[idProduto - 1];
-            carrinhoDeCompras.push(produto);
-            localStorage.setItem("carrinho", JSON.stringify(carrinhoDeCompras));
-            console.log(JSON.parse(localStorage.getItem("produtos"))[idProduto - 1]);
-            atualizarBadge();
         }
 
         function atualizarBadge() {
-            document.getElementById("qtde-carrinho").textContent = "+".concat(JSON.parse(localStorage.getItem("carrinho")).length);
+            try {
+                let qtdeCarrinho = 0;
+                const objetoProdutos = JSON.parse(localStorage.getItem("carrinho"));
+                Object.keys(objetoProdutos).forEach(produtoId => {
+                    qtdeCarrinho += objetoProdutos[produtoId].quantidade
+                });
+                
+                document.getElementById("qtde-carrinho").textContent = "+".concat(qtdeCarrinho);
+            } catch (SyntaxError) {
+                // console.log("Carrinho vazio");
+
+            }
         }
-            
-        atualizarBadge();    
-
-
+        atualizarBadge();
     </script>
 
     <script>
@@ -197,6 +215,18 @@
         document.addEventListener("DOMContentLoaded", () => {
             atualizarMenuAvatar();
         });
+    </script>
+    <script>
+        // produtos = JSON.parse(localStorage.getItem("produtos"));
+        // const produtosPorId = {};
+        // produtos.forEach(element => {
+        //     const { id, ...resto } = element;
+        //     produtosPorId[id] = {
+        //         ...resto,
+        //         quantidade : 0
+        //     };
+        // });
+        // console.log(produtosPorId[1]);
     </script>
 
 </body>
