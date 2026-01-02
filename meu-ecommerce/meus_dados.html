@@ -32,86 +32,34 @@
     </header>
 
     <main id="main-content" class="main-content">
-        <div class="container-fluid text-center">
+        <!-- <div class="container-fluid text-center">
             <h1 class="display-1 mb-5">Endereços Cadastrados</h1>
         </div>
 
-        <!-- Lista de endereços e botão de cadastro; será preenchida com JavaScript -->
         <div id="lista-enderecos" class="list-group w-50 mx-auto gap-2 mb-3"></div>
         <div class="d-grid gap-2 col-md-3 col-xxl-2 mx-auto">
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Cadastrar Endereço
             </button>
-        </div>
+        </div> -->
 
-        <!-- Modal para cadastro de novo endereço -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div aria-live="polite" aria-atomic="true"
-                        class="d-flex justify-content-center align-items-center w-100 mt-2">
 
-                        <div id="liveToast" class="toast align-items-center text-bg-danger border-0" role="alert"
-                            aria-live="assertive" aria-atomic="true">
-                            <div class="d-flex">
-                                <div class="toast-body">
-
-                                </div>
-                                <button type="button" class="btn-close btn-close-white me-2 m-auto"
-                                    data-bs-dismiss="toast" aria-label="Close"></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-house-add-fill"></i> Novo
-                            Endereço</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="formEndereco">
-                            <div class="input-group mb-3">
-                                <input id="modalEstado" type="text" class="form-control" placeholder="Estado"
-                                    aria-label="Username" aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group mb-3">
-                                <input id="modalCidade" type="text" class="form-control" placeholder="Cidade"
-                                    aria-label="Recipient’s username" aria-describedby="basic-addon2">
-                            </div>
-                            <div class="mb-3">
-                                <div class="input-group">
-                                    <input id="modalBairro" type="text" class="form-control" id="basic-url"
-                                        placeholder="Bairro" aria-describedby="basic-addon3 basic-addon4">
-                                </div>
-                            </div>
-                            <div class="input-group mb-3">
-                                <input id="modalRua" type="text" class="form-control"
-                                    aria-label="Amount (to the nearest dollar)" placeholder="Rua">
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text"><i class="bi bi-123"></i></span>
-                                <input id="modalNumero" type="text" class="form-control" placeholder="Número"
-                                    aria-label="Username">
-                                <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
-                                <input id="modalCEP" type="text" class="form-control" placeholder="Código Postal"
-                                    aria-label="Server">
-                                <div class="form-text" id="basic-addon4">Nós nunca iremos compartilhar seus dados com
-                                    terceiros.
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button id="modalCadastrar" type="button" class="btn btn-primary btn-success">Cadastrar</button>
-                        <button type="button" class="btn btn-secondary btn-danger"
-                            data-bs-dismiss="modal">Cancelar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </main>
     <script>
-        document.getElementById("dados-pessoais").onclick = function () { renderizarDadosPessoais(); };
-        document.getElementById("modalCadastrar").onclick = function () { cadastrarNovoEndereco(); };
+        document.addEventListener("DOMContentLoaded", () => {
+            renderizarDadosPessoais();
+        });
+
+        document.getElementById("dados-pessoais").onclick = e => {
+            e.preventDefault();
+            renderizarDadosPessoais();
+        };
+
+        document.getElementById("enderecos-pessoais").onclick = e => {
+            e.preventDefault();
+            renderizarEnderecos();
+        };
+        // document.getElementById("modalCadastrar").onclick = cadastrarNovoEndereco;
 
         function renderizarDadosPessoais() {
             event.preventDefault();
@@ -151,6 +99,100 @@
             `;
 
         }
+
+        // function ativarAba(idAtivo) {
+        //     document.querySelectorAll(".sidebar .nav-link").forEach(link => {
+        //         link.classList.remove("active");
+        //     });
+
+        //     document.getElementById(idAtivo).classList.add("active");
+        // }
+
+        function renderizarEnderecos() {
+            // ativarAba("enderecos-pessoais");
+
+            const main = document.getElementById("main-content");
+
+            main.innerHTML = `
+        <div class="container-fluid text-center">
+            <h1 class="display-1 mb-5">Endereços Cadastrados</h1>
+        </div>
+
+        <div id="lista-enderecos" class="list-group w-50 mx-auto gap-2 mb-3"></div>
+
+        <div class="d-grid gap-2 col-md-3 col-xxl-2 mx-auto">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Cadastrar Endereço
+            </button>
+        </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div aria-live="polite" aria-atomic="true"
+                        class="d-flex justify-content-center align-items-center w-100 mt-2">
+
+                        <div id="liveToast" class="toast align-items-center border-0" role="alert"
+                            aria-live="assertive" aria-atomic="true">
+                            <div class="d-flex justify-content-centertext-center">
+                                <div class="toast-body">
+
+                                </div>
+                                <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                                    data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-house-add-fill"></i> Novo
+                            Endereço</h1>
+                        <button id="fecharModal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formEndereco">
+                            <div class="input-group mb-3">
+                                <input id="modalEstado" type="text" class="form-control" placeholder="Estado"
+                                    aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <input id="modalCidade" type="text" class="form-control" placeholder="Cidade"
+                                    aria-label="Recipient’s username" aria-describedby="basic-addon2">
+                            </div>
+                            <div class="mb-3">
+                                <div class="input-group">
+                                    <input id="modalBairro" type="text" class="form-control" id="basic-url"
+                                        placeholder="Bairro" aria-describedby="basic-addon3 basic-addon4">
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input id="modalRua" type="text" class="form-control"
+                                    aria-label="Amount (to the nearest dollar)" placeholder="Rua">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="bi bi-123"></i></span>
+                                <input id="modalNumero" type="text" class="form-control" placeholder="Número"
+                                    aria-label="Username">
+                                <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                                <input id="modalCEP" type="text" class="form-control" placeholder="Código Postal"
+                                    aria-label="Server">
+                                <div class="form-text" id="basic-addon4">Nós nunca iremos compartilhar seus dados com
+                                    terceiros.
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="modalCadastrar" onclick="cadastrarNovoEndereco()" type="button" class="btn btn-primary btn-success">Cadastrar</button>
+                        <button type="button" class="btn btn-secondary btn-danger"
+                            data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+            renderizarListaEnderecos();
+        }
+
 
         function obterEnderecos() {
             try {
@@ -235,7 +277,7 @@
             renderizarListaEnderecos();
         }
 
-        renderizarListaEnderecos();
+        // renderizarListaEnderecos();
 
         function cadastrarNovoEndereco() {
             let listaEnderecos = {};
@@ -267,12 +309,10 @@
             const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
             toastBootstrap.show()
             document.getElementById("formEndereco").reset();
-            setTimeout(function () {
-                window.location.reload();
-            }, 1000);
-            // setTimeout(() => {
-            //     window.location.reload()
-            // }, 1000);
+            setTimeout(() => {
+                document.getElementById("fecharModal").click();
+                renderizarEnderecos();
+            },1000);
         }
 
         function requisicaoAtualizarDados() {
