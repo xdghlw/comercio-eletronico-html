@@ -1,5 +1,7 @@
       function atualizarMenuAvatar() {
         const menu = document.getElementById("cabecalho");  
+        // console.log(menu);
+        
         // const menu = document.getElementsByTagName("header");  
         menu.innerHTML = "";
 

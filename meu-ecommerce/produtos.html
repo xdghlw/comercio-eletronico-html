@@ -154,7 +154,7 @@
         });
 
 
-        function confirmarAcao() {
+        function exibirToastConfirmacao() {
             const toastLiveExample = document.getElementById("liveToast");
             toastLiveExample.classList.add("text-bg-success");
             document.getElementsByClassName("toast-body")[0].innerHTML = `
@@ -170,6 +170,7 @@
         function adicionarCarrinho(idProduto) {
             let carrinhoDeCompras = {};
             let produto;
+            console.log();
 
             try {
                 if (localStorage.hasOwnProperty("carrinho") && localStorage.getItem("carrinho").length !== 0) {
@@ -177,21 +178,25 @@
                     if (JSON.parse(localStorage.getItem("carrinho")).hasOwnProperty(idProduto)) {
                         carrinhoDeCompras[idProduto].quantidade += 1;
                         localStorage.setItem("carrinho", JSON.stringify(carrinhoDeCompras));
-                        confirmarAcao();
+                        exibirToastConfirmacao();
                         atualizarBadge();
+                        console.log(carrinhoDeCompras);
                         return;
                     }
                 }
                 localStorage.removeItem("carrinho");
-                carrinhoDeCompras[idProduto] = { quantidade: 1 };
+                carrinhoDeCompras[idProduto] = {
+                    ...JSON.parse(localStorage.getItem("produtos"))[idProduto],
+                    quantidade: 1
+                };
                 localStorage.setItem("carrinho", JSON.stringify(carrinhoDeCompras));
+                console.log(carrinhoDeCompras);
                 atualizarBadge();
             } catch (SyntaxError) {
                 console.log(SyntaxError);
             }
         }
 
-        // adicionarCarrinho(1);
         function atualizarBadge() {
             try {
                 let qtdeCarrinho = 0;
@@ -199,8 +204,9 @@
                 Object.keys(objetoProdutos).forEach(produtoId => {
                     qtdeCarrinho += objetoProdutos[produtoId].quantidade
                 });
-
-                document.getElementById("qtde-carrinho").textContent = "+".concat(qtdeCarrinho);
+                if (Object.keys(objetoProdutos) != 0) {
+                    document.getElementById("qtde-carrinho").textContent = "+".concat(qtdeCarrinho);
+                }
             } catch (SyntaxError) {
                 // console.log("Carrinho vazio");
 
