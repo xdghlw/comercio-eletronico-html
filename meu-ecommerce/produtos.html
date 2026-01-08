@@ -85,10 +85,8 @@
     <footer></footer>
 
     <script>
-        const API_URL = "https://ppw-1-tads.vercel.app/api/products";
-        const CARDS_POR_ROW = 4;
 
-        fetch(API_URL)
+        fetch("https://ppw-1-tads.vercel.app/api/products")
             .then(res => {
                 if (!res.ok) throw new Error("Erro na requisição");
                 return res.json();
@@ -117,7 +115,7 @@
             Object.keys(produtos).forEach((idProduto, index) => {
                 produto = produtos[idProduto]
                 // cria uma nova row a cada 4 cards
-                if (index % CARDS_POR_ROW === 0) {
+                if (index % 4 === 0) {
                     row = document.createElement("div");
                     row.className = "row row-cols-1 row-cols-xxl-4 row-cols-md-2 g-5 mb-4";
                     main.appendChild(row);

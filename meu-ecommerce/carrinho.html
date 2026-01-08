@@ -47,13 +47,71 @@
     </header>
 
     <main class="min-vh-100">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+
+                    <div aria-live="polite" aria-atomic="true"
+                        class="d-flex justify-content-center align-items-center w-100 mt-2">
+                        <div id="liveToast" class="toast align-items-center border-0" role="alert" aria-live="assertive"
+                            aria-atomic="true">
+                            <div class="d-flex justify-content-center text-center">
+                                <div class="toast-body"></div>
+                                <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                                    data-bs-dismiss="toast"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">
+                            Calcular Frete
+                        </h1>
+                        <button id="fecharModal" type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <!-- Corpo do modal -->
+                    <div class="modal-body">
+                        <form id="formEndereco">
+
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button id="modalCadastrar" type="button" class="btn btn-success" onclick="selecionarFrete()">
+                            Selecionar
+                        </button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
         <hr>
         <div class="container align-self-center">
             <ul class="list-group mb-3">
 
             </ul>
+
+            <div class="border rounded p-3">
+                <h5 class="" id="campoValorTotal"></h5>
+                <div class="d-flex w-50 mt-2">
+                    <h5 class="form-text me-2 py-2">Informe o CEP para consultar: </h5>
+                    <input id="campoCep1" class="border px-5" type="text" aria-label="First name" class="form-control"
+                        style="width: 140px;" maxlength="5" value="73807">
+                    <input id="campoCep2" class="border px-2" type="text" aria-label="Last name" class="form-control"
+                        style="width: 45px;" maxlength="3" value="625">
+                    <button id="exampleModal" class="btn btn-sm btn-warning mx-2 text-white" onclick="calcularFrete()"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal">Calcular
+                        Frete</button>
+                </div>
+            </div>
             <div class="d-grid gap-2 col-6 mx-auto">
-                <button class="btn btn-success mb-5 mt-5" type="button">Finalizar Compra</button>
+                <button class="btn btn-success mb-5 mt-5" type="button" onclick="finalizarCompra()">Finalizar
+                    Compra</button>
             </div>
         </div>
         <script>
@@ -130,9 +188,9 @@
                         <small>Quantidade: ${produto.quantidade}</small>
                     </p>
 
-                    <p class="mb-0 total-text">
+                    <p class="valorParcial mb-0 total-text" data-valor="${calcularProdutos(produto.quantidade, produto.price).toFixed(2)}">
                         <small>
-                            Valor Total: R$ ${calcularPrecoTotal(produto.quantidade, produto.price).toFixed(2)}
+                            Valor Total: R$ ${calcularProdutos(produto.quantidade, produto.price).toFixed(2)}
                         </small>
                     </p>
                 </div>
@@ -191,24 +249,164 @@
                     qtdeInput.value = produto.quantidade;
                     qtdeTexto.textContent = `Quantidade: ${produto.quantidade}`;
                     valorTotal.textContent =
-                        `Valor Total: R$ ${calcularPrecoTotal(produto.quantidade, produto.price).toFixed(2)}`;
+                        `Valor Total: R$ ${calcularProdutos(produto.quantidade, produto.price).toFixed(2)}`;
+                    calcularPrecoTotal();
                 }
 
+                // function calcularPrecoTotal() {
+                //     let vetor = document.getElementsByClassName("valorParcial");
+                //     var somatorio = 0;
+                //     // console.log(vetor[0].dataset.valor);
+                //     for (let i = 0; i < vetor.length; i++) {
+                //         somatorio += Number(vetor[i].dataset.valor);
+                //     }
+                //     document.getElementById("campoValorTotal").textContent = `Valor Total: ${somatorio}`;
+                // }
                 lista.appendChild(li);
             }
 
-
-
-
-            function calcularPrecoTotal(quantidade, preco) {
-                return quantidade * preco;
-            }
-            atualizarMenuAvatar();
-        </script>
-        <script>
             Object.keys(JSON.parse(localStorage.getItem("carrinho"))).forEach(id => {
                 adicionarItemCarrinho(id, JSON.parse(localStorage.getItem("carrinho"))[id]);
             });
+
+            function calcularProdutos(quantidade, preco) {
+                return quantidade * preco;
+            }
+
+            function calcularPrecoTotal() {
+                let vetor = document.getElementsByClassName("valorParcial");
+                var somatorio = 0;
+                // console.log(vetor[0].dataset.valor);
+                for (let i = 0; i < vetor.length; i++) {
+                    somatorio += Number(vetor[i].dataset.valor);
+                }
+                document.getElementById("campoValorTotal").textContent = "Valor total: " + somatorio;
+            }
+            document.getElementById("exampleModal").click();
+            calcularPrecoTotal();
+            atualizarMenuAvatar();
+        </script>
+        <script>
+            var dadosFrete = {};
+            function construirOpcoesFrete(fretes) {
+                const form = document.getElementById("formEndereco");
+
+                form.querySelectorAll(".opcao-frete").forEach(el => el.remove());
+
+                fretes.forEach((frete, index) => {
+
+                    const container = document.createElement("div");
+                    container.className = "d-flex border rounded p-2 mb-2 opcao-frete";
+                    container.dataset.valor = frete.valor;
+                    container.dataset.servico = frete.servico;
+                    container.dataset.prazo = frete.prazo;
+
+                    const inputGroup = document.createElement("div");
+                    inputGroup.className = "input-group-text bg-transparent border-0";
+
+                    const radio = document.createElement("input");
+                    radio.className = "form-check-input mt-0";
+                    radio.type = "radio";
+                    radio.name = "frete";
+                    radio.value = frete.servico;
+
+                    // if (index === 0) radio.checked = true;
+
+                    inputGroup.appendChild(radio);
+
+                    const conteudo = document.createElement("div");
+                    conteudo.className = "ms-2";
+
+                    const titulo = document.createElement("strong");
+                    titulo.textContent = frete.servico;
+
+                    const valor = document.createElement("p");
+                    valor.className = "mb-0 small";
+                    valor.textContent = `Valor: R$ ${frete.valor.toFixed(2)}`;
+
+                    const prazo = document.createElement("p");
+                    prazo.className = "mb-0 small text-muted";
+                    prazo.textContent = frete.prazo;
+
+                    conteudo.appendChild(titulo);
+                    conteudo.appendChild(valor);
+                    conteudo.appendChild(prazo);
+
+                    container.appendChild(inputGroup);
+                    container.appendChild(conteudo);
+
+                    form.appendChild(container);
+                });
+            }
+
+            function calcularFrete() {
+                const cepString = document.getElementById("campoCep1").value + "-" + document.getElementById("campoCep2").value;
+                const dadosAtualizados = {
+                    cep: cepString
+                };
+
+                fetch("https://ppw-1-tads.vercel.app/api/frete", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(dadosAtualizados)
+                }).then(response => {
+                    if (!response.ok) {
+                        throw new Error("Erro ao atualizar os dados");
+                        console.log(response.json());
+                    }
+                    return response.json();
+                }).then(data => {
+                    console.log(data);
+
+                    data.fretes.forEach((dadosFrete) => {
+                        construirOpcoesFrete(data.fretes);
+                    })
+                });
+            }
+
+
+
+            function selecionarFrete() {
+                try {
+                    const tipoSelecionado = document.querySelector(
+                        'input[name="frete"]:checked'
+                    ).parentElement.parentElement.dataset;
+
+                    dadosFrete = {
+                        servico: tipoSelecionado.servico,
+                        valor: tipoSelecionado.valor,
+                        prazo: tipoSelecionado.prazo
+                    };
+                    console.log(dadosFrete);
+                    document.getElementById("fecharModal").click();
+
+                    // var teste = {
+                    //     ...JSON.parse(localStorage.getItem("carrinho")),
+                    //     "dadosFrete" : dadosFrete
+                    // };
+
+
+                } catch (error) {
+
+                }
+            }
+
+            function finalizarCompra() {
+
+                if (Object.keys(dadosFrete).length != 0 && localStorage.hasOwnProperty("usuarioLogado")) {
+                    var pedido = {
+                        ...JSON.parse(localStorage.getItem("carrinho")),
+                        "dadosFrete": dadosFrete
+                    }
+                    localStorage.setItem("pedido", JSON.stringify({ 1: pedido }));
+                    window.location.href = "sucesso-pedido.html";
+                } else {
+                    window.location.href = "login.html"
+                }
+
+            }
         </script>
     </main>
 
@@ -223,4 +421,5 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
