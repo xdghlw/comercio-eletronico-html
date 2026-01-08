@@ -1,22 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mensagem Enviada</title>
-    <link rel="stylesheet" href="/meu-ecommerce/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+
 <body>
-    <div id="sucesso-contato-principal" class="cabecalho">
-        <div id="principal-imagem">
-            <img src="img/confirme.png" alt="">
-        </div>
-        <div id="principal-texto">
-            <p>Mensagem enviada com sucesso!</p>
-            <a href="index.html">Voltar para a página principal</a>
-        <!-- </div>
-        <div id="principal-rodape">
-        </div> -->
-    </div>
+
+    <header>
+
+        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="">
+            <div id="index-container-fluid" class="container-fluid">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle bg-primary border-light" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-fill"></i>
+                    </button>
+                    <ul id="cabecalho" class="dropdown-menu">
+                        <!-- items cabecalho -->
+                    </ul>
+                </div>
+                <button class="navbar-toggler navbar-toggler-sm bg-white border-light" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto ms-2 mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" aria-current="page" href="produtos.html">Produtos
+                                <small><i class="bi bi-bag mx-1"></i></small></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" href="carrinho.html">Carrinho de Compras <i
+                                    class="bi bi-cart2 mx-1"></i></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" aria-current="page" href="contato.html">Contato<small><i
+                                        class="bi bi-chat-left-dots mx-1"></i></small></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+
+    <body>
+        <main class="">
+
+            <div>
+                <div class="card mb-auto bg-warning align-items-center vh-100">
+                    <img src="img/confirme.png" alt="..." style="width: 150px; margin-top: 250px;">
+                    <div class="card-body mt-5 text-center">
+                        <h5 class="card-title">Mensagem Enviada com Sucesso.</h5>
+                        <p class="card-text">Assim que possível, nossa equipe entrará em contato para solucionarmos o
+                            problema.</p>
+                    </div>
+                </div>
+            </div>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    atualizarMenuAvatar();
+                });
+                function atualizarMenuAvatar() {
+                    const menu = document.getElementById("cabecalho");
+                    menu.innerHTML = "";
+
+                    const usuarioLogado = localStorage.getItem("usuarioLogado");
+
+                    if (!usuarioLogado) {
+                        // Usuário NÃO logado
+                        menu.innerHTML = `
+                
+            <li>
+              <a class="dropdown-item" href="login.html">Entrar</a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="cadastro.html">Cadastrar</a>
+            </li>
+          `;
+                    } else {
+                        // Usuário logado
+                        menu.innerHTML = `
+            <li>
+              <a class="dropdown-item" href="meus_dados.html">Meus Dados</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="meus_pedidos.html">Meus Pedidos</a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item text-danger" href="#" onclick="finalizarSessao()">Sair</a>
+            </li>
+          `;
+                    }
+                }
+
+                function finalizarSessao() {
+                    localStorage.removeItem("usuarioLogado");
+                    window.location.href = "index.html";
+                }
+            </script>
+
+        </main>
+        <footer class="border-top position-sticky text-muted bg-light">
+            <div class="container">
+                <div class="row py-3">
+                    <div class="col-12 cold-md-4 text-center text-md-left">
+                        Loja Virtual 2025
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+
 </body>
+
 </html>

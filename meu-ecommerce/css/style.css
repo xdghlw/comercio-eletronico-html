@@ -1,31 +1,19 @@
-.d-block {
+/* .d-block {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 40%;
   max-width: 400px;
-}
+} */
 
 .carousel-control-next {
-  /* right: 20%; */
-  opacity: 1;
+  opacity: 100;
   filter: invert(1);
 }
 
 .carousel-control-prev {
-  /* left: 20%; */
-  opacity: 1;
+  opacity: 100;
   filter: invert(1);
-}
-
-#index-navbar #index-container-fluid {
-  position: relative;
-}
-
-#index-navbar #index-container-fluid #index-header-img {
-  position: absolute;
-  left: 50%;
-  /* transform: translateX(-50%); */
 }
 
 
@@ -34,37 +22,35 @@
   height: 50px;
 }
 
-
-* {
-  text-align: center;
+.confirmacao-img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
 }
 
-.btn-produto {
+
+/* .btn-produto {
   position: absolute;
   position: absolute;
   width: 200px;
   height: 40px;
   inset-inline-start: 15%;
   bottom: 20px;
-}
+} */
 
-.card {
+/* .card {
   position: relative;
   margin-bottom: 10px;
   margin-top: 10px;
   height: 500px;
   min-height: 500px;
-}
+} */
 
 #produtos-card {
   min-height: 100px;
   height: 15px;
   left: 15px;
 }
-
-/* img {
-  width: 15px;
-} */
 
 #produtos-avatar {
   width: 50px;
@@ -74,13 +60,7 @@
 #produtos-header-card {
   min-height: 0px;
   width: 200px;
-  
-}
 
-.col-md-4 {
-  /* position: relative;
-  background-color: whitesmoke; */
-  /* top: 15px;   */
 }
 
 #produtos-avatar {
@@ -88,3 +68,55 @@
   left: 10%;
   top: 10%;
 }
+
+
+.form-login {
+  display: flex;
+  margin-top: 200px;
+  justify-content: center;
+  text-align: center;
+  height: 40vh;
+  width: 60vh;
+}
+
+.sidebar {
+  height: 100%;
+  width: 180px;
+  padding-top: 20px;
+  background-color: #00488b;
+}
+
+.sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  color: white;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #d8a602;
+}
+
+.main-content {
+  height: 100%;
+  margin-left: 200px;
+  padding: 20px;
+}
+
+.card-img-top {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: contain;
+  object-position: center;
+  /* background-color: #f8f9fa; */
+}
+
+.nav-link
+ {
+  color: #fff !important;
+}
+
+
+
+

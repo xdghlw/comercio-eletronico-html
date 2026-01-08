@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Cadastro</title>
+</head>
+
+<body>
+    <header>
+
+        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="">
+            <div id="index-container-fluid" class="container-fluid">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle bg-primary border-light" type="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-fill"></i>
+                    </button>
+                    <ul id="cabecalho" class="dropdown-menu">
+                        <!-- items cabecalho -->
+                    </ul>
+                </div>
+                <button class="navbar-toggler navbar-toggler-sm bg-white border-light" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto ms-2 mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" aria-current="page" href="produtos.html">Produtos
+                                <small><i class="bi bi-bag mx-1"></i></small></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" href="carrinho.html">Carrinho de Compras <i
+                                    class="bi bi-cart2 mx-1"></i></a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" aria-current="page" href="contato.html">Contato<small><i
+                                        class="bi bi-chat-left-dots mx-1"></i></small></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid text-center">
+            <h1 class="display-4 mt-5 mb-5">Preencha os campos para realizar seu cadastro.</h1>
+        </div>
+
+    </header>
+
+    <main>
+        <div class="row d-flex justify-content-center">
+            <div class="mt-5 border rounded p-5 col-lg-3 col-md-6">
+                <form id="formCadastro" class="row g-3 needs-validation" novalidate>
+
+                    <div class="col input-group mb-1">
+                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-person"></i></span>
+                        <input id="name" type="text" class="form-control" placeholder="Nome" aria-label="Username"
+                            aria-describedby="basic-addon1" required>
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback ml-5">
+                            Insira seu nome
+                        </div>
+                    </div>
+
+                    <!-- <div class="col mb-1">
+                    <input  type="text" class="form-control" id="validationCustom02" placeholder="Sobrenome" required>
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback ml-5">
+                        Insira seu sobrenome
+                    </div>
+                </div> -->
+
+                    <div class="mb-1 input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-envelope-at"></i></span>
+                        <input id="email" type="email" class="form-control" id="validationCustom03" placeholder="Email"
+                            required>
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback ml-5">
+                            Insira seu email
+                        </div>
+                    </div>
+
+                    <div class="mb-1 input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-key"></i></span>
+                        <input id="password" type="password" class="form-control" id="validationCustom04"
+                            placeholder="Senha" required>
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback ml-5">
+                            Insira sua senha
+                        </div>
+                    </div>
+
+                    <div class="mb-0 input-group">
+                        <span class="input-group-text" id="basic-addon1"><i class="bi bi-key"></i></span>
+                        <input id="confirmPassword" type="password" class="form-control" id="validationCustom05"
+                            placeholder="Confirme sua senha" required>
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback ml-5">
+                            Confirme sua senha
+                        </div>
+                    </div>
+
+                    <div class="form-text mb-0" id="basic-addon4">É importante memorizar sua senha e garantir que ela
+                        seja
+                        segura.</div>
+
+                    <div class="d-grid gap-2 col-3 mx-auto">
+                        <!-- <button id="ajaxButton" class="btn btn-outline-secondary">Realizar Cadastro</button> -->
+                        <span id="ajaxButton" class="btn btn-warning text-white" type="submit">Cadastrar</span>
+                        <p id="msg-confirmacao" class="text-center "></p>
+                        <div class="d-flex justify-content-center">
+                            <div id="cadastroSpinner" class="spinner-border text-success text-center visually-hidden"
+                                role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-top fixed-bottom text-muted bg-light">
+        <div class="container">
+            <div class="row py-3">
+                <div class="col-12 cold-md-4 text-center text-md-left">
+                    Loja Virtual 2025 &reg;
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript">
+
+        document.getElementById('name').value = "Gustavo";
+        document.getElementById('email').value = "gustavo@email.com";
+        document.getElementById('password').value = "123";
+        document.getElementById('confirmPassword').value = "123";
+
+        var httpRequest;
+        document.getElementById("ajaxButton").onclick = function () { makeRequest("https://ppw-1-tads.vercel.app/api/register"); };
+
+        function makeRequest(url) {
+
+            const payload = {
+                nome: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                senha: document.getElementById('password').value,
+                confirmacaoSenha: document.getElementById('confirmPassword').value
+            };
+
+            if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+                httpRequest = new XMLHttpRequest();
+            } else if (window.ActiveXObject) { // IE
+                try {
+                    httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                catch (e) {
+                    try {
+                        httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    catch (e) { }
+                }
+            }
+
+            if (!httpRequest) {
+                alert('Giving up :( Cannot create an XMLHTTP instance');
+                return false;
+            }
+
+            httpRequest.onreadystatechange = alertContents;
+            httpRequest.open('POST', url);
+            httpRequest.setRequestHeader('Content-Type', 'application/json');
+            httpRequest.send(JSON.stringify(payload));
+        }
+
+        function alertContents() {
+            if (httpRequest.readyState === 4) {
+                if (httpRequest.status === 200) {
+                    console.log(JSON.parse(httpRequest.responseText))
+                    validarInterfaceGrafica();
+                    registrarUsuario(document.getElementById("name").value, document.getElementById("email").value)
+                    setTimeout(function () {
+                        window.location.href = "login.html";
+                    }, 1000);
+
+                } else {
+                    console.log(JSON.parse(httpRequest.responseText))
+                    document.getElementById("ajaxButton").classList.add("btn-danger");
+                    // document.getElementById("msg-confirmacao").textContent = JSON.parse(httpRequest.responseText).erro;
+                    document.getElementById("msg-confirmacao").textContent = JSON.parse(httpRequest.responseText).erro;
+                }
+            }
+        }
+
+        function registrarUsuario(email, nome) {
+            localStorage.setItem(email, nome);
+        }
+
+        function validarInterfaceGrafica() {
+            document.getElementById("ajaxButton").className = null;
+            document.getElementById("cadastroSpinner").classList.remove("visually-hidden");
+            document.getElementById("ajaxButton").classList.add("btn", "btn-success");
+            document.getElementById("msg-confirmacao").textContent = JSON.parse(httpRequest.responseText).mensagem;
+        }
+
+        // document.getElementById("ajaxButton").click();
+    </script>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+
+            document.addEventListener("DOMContentLoaded", () => {
+                atualizarMenuAvatar();
+            });
+
+        function atualizarMenuAvatar() {
+            const menu = document.getElementById("cabecalho");
+            menu.innerHTML = "";
+
+            const usuarioLogado = localStorage.getItem("usuarioLogado");
+
+            if (!usuarioLogado) {
+                // Usuário NÃO logado
+                menu.innerHTML = `
+                
+            <li>
+              <a class="dropdown-item" href="login.html">Entrar</a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="cadastro.html">Cadastrar</a>
+            </li>
+          `;
+            } else {
+                // Usuário logado
+                menu.innerHTML = `
+            <li>
+              <a class="dropdown-item" href="meus_dados.html">Meus Dados</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="meus_pedidos.html">Meus Pedidos</a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item text-danger" href="#" onclick="finalizarSessao()">Sair</a>
+            </li>
+          `;
+            }
+        }
+
+        function finalizarSessao() {
+            localStorage.removeItem("usuarioLogado");
+            window.location.href = "index.html";
+        }
+
+    </script>
+</body>
+
+</html>
