@@ -12,48 +12,8 @@
 </head>
 
 <body>
-  <!-- navbar com 3 sub componentes (.navbar-brand; navbar-toggler; collapse.navbar-collapse) -->
-  <!-- .navbar-expand{-sm|-md|-lg|-xl|-xxl} -->
-
   <header>
-
-    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="">
-      <div id="index-container-fluid" class="container-fluid">
-        <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle bg-primary border-light" type="button"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-person-fill"></i>
-          </button>
-          <ul id="cabecalho" class="dropdown-menu">
-            <!-- items cabecalho -->
-          </ul>
-        </div>
-        <button class="navbar-toggler navbar-toggler-sm bg-white border-light" type="button" data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-          aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto ms-2 mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link btn btn-primary" aria-current="page" href="produtos.html">Produtos <small><i
-                    class="bi bi-bag mx-1"></i></small></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link btn btn-primary" href="carrinho.html">Carrinho de Compras <i
-                  class="bi bi-cart2 mx-1"></i></a>
-            </li>
-          </ul>
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link btn btn-primary" aria-current="page" href="contato.html">Contato<small><i
-                    class="bi bi-chat-left-dots mx-1"></i></small></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
+    <!-- Uma Bootstrap Navbar personalizada será renderizada via Javascript-->
   </header>
   <main>
     <div id="carouselExampleCaptions" class="carousel slide">
@@ -130,49 +90,8 @@
       </div>
     </div>
   </footer>
+
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      atualizarMenuAvatar();
-    });
-    function atualizarMenuAvatar() {
-      const menu = document.getElementById("cabecalho");
-      menu.innerHTML = "";
-
-      const usuarioLogado = localStorage.getItem("usuarioLogado");
-
-      if (!usuarioLogado) {
-        // Usuário NÃO logado
-        menu.innerHTML = `
-                
-            <li>
-              <a class="dropdown-item" href="login.html">Entrar</a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="cadastro.html">Cadastrar</a>
-            </li>
-          `;
-      } else {
-        // Usuário logado
-        menu.innerHTML = `
-            <li>
-              <a class="dropdown-item" href="meus_dados.html">Meus Dados</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="meus_pedidos.html">Meus Pedidos</a>
-            </li>
-            <li><hr class="dropdown-divider"></li>
-            <li>
-              <a class="dropdown-item text-danger" href="#" onclick="finalizarSessao()">Sair</a>
-            </li>
-          `;
-      }
-    }
-
-    function finalizarSessao() {
-      localStorage.removeItem("usuarioLogado");
-      window.location.href = "index.html";
-    }
-
     function montarCarousel(produtos) {
       const carouselInner = document.querySelector("#carouselExample .carousel-inner");
 
@@ -184,7 +103,6 @@
         // cria o slide
         const carouselItem = document.createElement("div");
         carouselItem.classList.add("carousel-item");
-        // carouselItem.classList.add("mx-5");
 
         // primeiro slide ativo
         if (i === 0) {
@@ -224,16 +142,32 @@
       }
     }
 
-    fetch("https://ppw-1-tads.vercel.app/api/products")
-      .then(response => response.json())
-      .then(data => {
-        montarCarousel(data.products);
-      })
-      .catch(error => console.error(error));
+    // O acesso a API remota só será realizado se o vetor de produtos não estiver persistente no localStorage.
+    if (!localStorage.hasOwnProperty("produtos")) {
+      fetch("https://ppw-1-tads.vercel.app/api/products")
+        .then(res => {
+          if (!res.ok) throw new Error("Erro na requisição");
+          return res.json();
+        })
+        .then(data => {
+          console.log(data)
+          produtos = JSON.parse(localStorage.getItem("produtos"));
+          const objetoProdutos = {};
+          const persistenciaProdutos = {};
 
-
+          data.products.forEach(({ id, ...resto }) => {
+            persistenciaProdutos[id] = resto;
+          });
+          montarCarousel(Object.values(persistenciaProdutos));
+          localStorage.setItem("produtos", JSON.stringify(persistenciaProdutos));
+        })
+    } else {
+      console.log(Object.values(JSON.parse(localStorage.getItem("produtos"))));
+      montarCarousel(Object.values(JSON.parse(localStorage.getItem("produtos"))));
+    }
 
   </script>
+  <script src="js/renderizar-navbar.js"></script>
 </body>
 
 </html>

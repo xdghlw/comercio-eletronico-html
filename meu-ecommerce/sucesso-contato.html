@@ -13,51 +13,12 @@
 </head>
 
 <body>
-
     <header>
-
-        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="">
-            <div id="index-container-fluid" class="container-fluid">
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle bg-primary border-light" type="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-fill"></i>
-                    </button>
-                    <ul id="cabecalho" class="dropdown-menu">
-                        <!-- items cabecalho -->
-                    </ul>
-                </div>
-                <button class="navbar-toggler navbar-toggler-sm bg-white border-light" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto ms-2 mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-primary" aria-current="page" href="produtos.html">Produtos
-                                <small><i class="bi bi-bag mx-1"></i></small></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-primary" href="carrinho.html">Carrinho de Compras <i
-                                    class="bi bi-cart2 mx-1"></i></a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-primary" aria-current="page" href="contato.html">Contato<small><i
-                                        class="bi bi-chat-left-dots mx-1"></i></small></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
+        <!-- Uma Bootstrap Navbar personalizada será renderizada via Javascript-->
     </header>
 
     <body>
-        <main class="">
-
+        <main>
             <div>
                 <div class="card mb-auto bg-warning align-items-center vh-100">
                     <img src="img/confirme.png" alt="..." style="width: 150px; margin-top: 250px;">
@@ -68,50 +29,6 @@
                     </div>
                 </div>
             </div>
-            <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                    atualizarMenuAvatar();
-                });
-                function atualizarMenuAvatar() {
-                    const menu = document.getElementById("cabecalho");
-                    menu.innerHTML = "";
-
-                    const usuarioLogado = localStorage.getItem("usuarioLogado");
-
-                    if (!usuarioLogado) {
-                        // Usuário NÃO logado
-                        menu.innerHTML = `
-                
-            <li>
-              <a class="dropdown-item" href="login.html">Entrar</a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="cadastro.html">Cadastrar</a>
-            </li>
-          `;
-                    } else {
-                        // Usuário logado
-                        menu.innerHTML = `
-            <li>
-              <a class="dropdown-item" href="meus_dados.html">Meus Dados</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="meus_pedidos.html">Meus Pedidos</a>
-            </li>
-            <li><hr class="dropdown-divider"></li>
-            <li>
-              <a class="dropdown-item text-danger" href="#" onclick="finalizarSessao()">Sair</a>
-            </li>
-          `;
-                    }
-                }
-
-                function finalizarSessao() {
-                    localStorage.removeItem("usuarioLogado");
-                    window.location.href = "index.html";
-                }
-            </script>
-
         </main>
         <footer class="border-top position-sticky text-muted bg-light">
             <div class="container">
@@ -122,8 +39,7 @@
                 </div>
             </div>
         </footer>
+        <script src="js/renderizar-navbar.js"></script>
     </body>
-
-</body>
 
 </html>
