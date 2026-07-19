@@ -37,7 +37,7 @@ header.innerHTML = `
                                 <div class="d-inline position-relative" style="padding-top: 5px;">
                                     <i class="bi bi-cart2 mx-1"></i>
                                     <small><small><span id="qtde-carrinho"
-                                                class="position-absolute top-0 start-50 translate-middle badge rounded-pill text-bg-danger opacity-100 border border-light"></span></small></small>
+                                                class="position-absolute top-80 start-50 translate-middle badge rounded-pill text-bg-danger opacity-100 border border-light"></span></small></small>
                                 </div>
                                 Carrinho de Compras
                             </a>
